@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
           Text(LocaleKeys.profile_settings_avatar_label.tr()),
           Text(LocaleKeys.onboarding_explore_button.tr()),
           Text(LocaleKeys.authentication_confirm_password_label.tr()),
+          Text('authentication.confirm_password_label'.tr()),
           ElevatedButton(
             onPressed: () {
               if (context.locale == Locale('en')) {

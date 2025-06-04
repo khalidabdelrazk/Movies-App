@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 class AppStyles {
+
   // static TextStyle regular12Text = GoogleFonts.roboto(
   //     fontSize: 12, fontWeight: FontWeight.w400, color: AppColors.pr);
   // static TextStyle regular11SalePrice = GoogleFonts.roboto(
@@ -36,12 +37,5 @@ class AppStyles {
   //     color: AppColors.primaryDarkLight);
   // static TextStyle medium14PrimaryDark = GoogleFonts.roboto(
   //     fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.primaryDark);
-  // static TextStyle medium18Header = GoogleFonts.roboto(
-  //     fontSize: 18.sp,
-  //     fontWeight: FontWeight.w500,
-  //     color: AppColors.primaryDark);
-  // static TextStyle medium18White = GoogleFonts.roboto(
-  //     fontSize: 18, fontWeight: FontWeight.w500, color: AppColors.whiteColor);
-  // static TextStyle medium20White = GoogleFonts.roboto(
-  //     fontSize: 20, fontWeight: FontWeight.w500, color: AppColors.whiteColor);
+
 }

@@ -17,16 +17,20 @@ abstract class AppAssets {
   static const String empty          = '${_imgPath}empty.png';
   static const String forgetPassword = '${_imgPath}forget password.png';
 
+  static const String watchNow  = '${_svgPath}Available Now.png';
+  static const String available = '${_svgPath}Watch Now.png';
+
   // --------------------------------------------------------------------------
 
   // todo : svg Pictures =>
   static const String egypt   = '${_svgPath}ar.svg';
   static const String america = '${_svgPath}en.svg';
 
-  static const String home    = '${_svgPath}Home.svg';
-  static const String search  = '${_svgPath}search.svg';
-  static const String browse = '${_svgPath}browse.svg';
-  static const String profile = '${_svgPath}profile.svg';
+  static const String home      = '${_svgPath}Home.svg';
+  static const String search    = '${_svgPath}search.svg';
+  static const String browse    = '${_svgPath}browse.svg';
+  static const String profile   = '${_svgPath}profile.svg';
+
 
   static const String star  = '${_svgPath}star.svg';
   static const String timer = '${_svgPath}timer.svg';
