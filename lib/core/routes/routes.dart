@@ -4,7 +4,7 @@ import 'package:movies/presentation/authentication/ui/screens/login.dart';
 import 'package:movies/presentation/authentication/ui/screens/register.dart';
 import 'package:movies/presentation/authentication/ui/screens/reset_password.dart';
 import 'package:movies/presentation/movie%20details/ui/movie_details.dart';
-import 'package:movies/presentation/profile%20update/profile_update.dart';
+import 'package:movies/presentation/profile%20update/ui/profile_update.dart';
 import '../../presentation/root/root.dart';
 
 abstract class Routes {
