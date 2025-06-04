@@ -1,0 +1,57 @@
+{
+  "onboarding": {
+    "back_button": "Back",
+    "explore_button": "Explore Now",
+    "finish_button": "finish",
+    "next_button": "Next",
+    "onboarding_1_description": "Get access to a huge library of movies to suit all tastes. You will surely like it.",
+    "onboarding_1_title": "Find Your Next Favorite Movie Here",
+    "onboarding_2_description": "Discover a vast collection of all qualities and genres. Find your next favorite film with ease.",
+    "onboarding_2_title": "Discover Movies",
+    "onboarding_3_description": "Discover movies from every genre, in all available qualities. Find something new and exciting to watch every day.",
+    "onboarding_3_title": "Explore All Genres",
+    "onboarding_4_description": "Save movies to your watchlist to keep track of what you want to watch next. Enjoy films in various qualities and genres.",
+    "onboarding_4_title": "Create Watchlist",
+    "onboarding_5_description": "Share your thoughts on the movies you've watched. Dive deep into film details and help others discover great movies with your reviews.",
+    "onboarding_5_title": "Rate, Review, and Learn",
+    "onboarding_6_button": "Start Watching Now"
+  },
+
+  "authentication": {
+    "already_have_account_prompt": "Already Have Account ?",
+    "confirm_password_label": "Confirm Password",
+    "create_account_button": "Create Account",
+    "create_one_link": "Create One",
+    "dont_have_account_prompt": "Don’t Have Account ?",
+    "email_label": "Email",
+    "forgot_password_button": "Forget Password",
+    "forgot_password_link": "Forget Password ?",
+    "login_button": "Login",
+    "login_link": "Login",
+    "login_with_google_button": "Login With Google",
+    "name_label": "Name",
+    "or_separator": "OR",
+    "password_label": "Password",
+    "phone_number_label": "Phone Number",
+    "register_button": "Register",
+    "reset_password_title": "Reset Password"
+  },
+
+  "profile_settings": {
+    "avatar_label": "Avatar",
+    "delete_account_button": "Delete Account",
+    "edit_profile_button": "Edit Profile",
+    "exit_button": "Exit",
+    "pick_avatar_button": "Pick Avatar",
+    "update_data_button": "Update Data"
+  },
+
+  "general_ui_Browse": {
+    "action_genre": "Action",
+    "history_title": "History",
+    "search_placeholder": "Search",
+    "see_more_button": "See More",
+    "watch_button": "Watch",
+    "wish_list_title": "Wish List"
+  }
+}
