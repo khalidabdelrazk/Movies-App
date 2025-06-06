@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/core/constants/constants.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'common/bottombar_item.dart';
@@ -73,12 +74,11 @@ class RootState extends State<Root> with TickerProviderStateMixin {
 
   Widget getBottomBar() {
     return Container(
-      height: 55,
-      width: double.infinity,
-      margin: EdgeInsets.fromLTRB(25, 0, 25, 0),
+      height: 56.sp,
+      width: 390.sp,
       decoration: BoxDecoration(
         color: AppColors.darkGray,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(16.sp),
         boxShadow: [
           BoxShadow(
             color: AppColors.shadowColor.withAlpha(200),
@@ -95,7 +95,6 @@ class RootState extends State<Root> with TickerProviderStateMixin {
           pages.length,
           (index) => BottomBarItem(
             pages[index]["icon"],
-            "",
             isActive: activeTab == index,
             onTap: () {
               onPageChanged(index);

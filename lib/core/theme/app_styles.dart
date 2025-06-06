@@ -4,38 +4,42 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 class AppStyles {
-
-  // static TextStyle regular12Text = GoogleFonts.roboto(
-  //     fontSize: 12, fontWeight: FontWeight.w400, color: AppColors.pr);
-  // static TextStyle regular11SalePrice = GoogleFonts.roboto(
-  //     fontSize: 12, fontWeight: FontWeight.w400, color: AppColors.primaryDark);
-  // static TextStyle regular14Text = GoogleFonts.roboto(
-  //     fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.primaryDark);
-  // static TextStyle regular18White = GoogleFonts.roboto(
-  //     fontSize: 18, fontWeight: FontWeight.w400, color: AppColors.whiteColor);
-  // static TextStyle light14SearchHint = GoogleFonts.roboto(
-  //     fontSize: 14,
-  //     fontWeight: FontWeight.w300,
-  //     color: AppColors.searchHintColor);
-  // static TextStyle light16White = GoogleFonts.roboto(
-  //     fontSize: 16, fontWeight: FontWeight.w300, color: AppColors.whiteColor);
-  // static TextStyle light18HintText = GoogleFonts.roboto(
-  //     fontSize: 18,
-  //     fontWeight: FontWeight.w300,
-  //     color: AppColors.hintTextColor);
-  // static TextStyle semi16TextWhite = GoogleFonts.roboto(
-  //     fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.whiteColor);
-  // static TextStyle semi20Primary = GoogleFonts.roboto(
-  //     fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
-  // static TextStyle semi24White = GoogleFonts.roboto(
-  //     fontSize: 24, fontWeight: FontWeight.w600, color: AppColors.whiteColor);
-  // static TextStyle medium14Category = GoogleFonts.roboto(
-  //     fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.primaryDark);
-  // static TextStyle medium14LightPrimary = GoogleFonts.roboto(
-  //     fontSize: 14,
-  //     fontWeight: FontWeight.w500,
-  //     color: AppColors.primaryDarkLight);
-  // static TextStyle medium14PrimaryDark = GoogleFonts.roboto(
-  //     fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.primaryDark);
-
+  static TextStyle blackBold20 = GoogleFonts.inter(
+      fontSize: 20.sp, fontWeight: FontWeight.bold, color: AppColors.black);
+  static TextStyle primaryBold20 = GoogleFonts.inter(
+      fontSize: 20.sp,
+      fontWeight: FontWeight.bold,
+      color: AppColors.primaryYellowColor);
+  static TextStyle primaryRegular14 = GoogleFonts.inter(
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w400,
+      color: AppColors.primaryYellowColor);
+  static TextStyle primaryRegular16 = GoogleFonts.inter(
+      fontSize: 16.sp,
+      fontWeight: FontWeight.w400,
+      color: AppColors.primaryYellowColor);
+  static TextStyle lightMedium36 = GoogleFonts.inter(
+      fontSize: 36.sp, fontWeight: FontWeight.w500, color: AppColors.light);
+  static TextStyle lightBold24 = GoogleFonts.inter(
+      fontSize: 24.sp, fontWeight: FontWeight.bold, color: AppColors.light);
+  static TextStyle lightBold20 = GoogleFonts.inter(
+      fontSize: 20.sp, fontWeight: FontWeight.bold, color: AppColors.light);
+  static TextStyle lightRegular20 = GoogleFonts.inter(
+      fontSize: 20.sp, fontWeight: FontWeight.w500, color: AppColors.light);
+  static TextStyle lightRegular16 = GoogleFonts.inter(
+      fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.light);
+  static TextStyle darkLightRegular20 = GoogleFonts.inter(
+      fontSize: 20.sp,
+      fontWeight: FontWeight.w500,
+      color: AppColors.light.withAlpha(200));
+  static TextStyle darkSemiBold20 = GoogleFonts.inter(
+      fontSize: 20.sp,
+      fontWeight: FontWeight.w700,
+      color: AppColors.scaffoldBgColor);
+  static TextStyle darkRegular20 = GoogleFonts.inter(
+      fontSize: 20.sp,
+      fontWeight: FontWeight.w400,
+      color: AppColors.scaffoldBgColor);
+  static TextStyle darkGrayRegular20 = GoogleFonts.inter(
+      fontSize: 20.sp, fontWeight: FontWeight.w400, color: AppColors.darkGray);
 }

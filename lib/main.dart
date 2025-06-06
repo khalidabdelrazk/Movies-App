@@ -1,13 +1,20 @@
+import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/core/routes/route_names.dart';
 import 'package:movies/core/routes/routes.dart';
 import 'package:movies/core/theme/app_theme.dart';
 import 'package:movies/generated/codegen_loader.g.dart';
+import 'package:movies/presentation/root/root.dart';
+import 'core/di/di.dart';
+import 'core/utils/my_bloc_observer.dart';
 
 Future<void> main() async {
+  Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  configureDependencies();
 
   runApp(
     EasyLocalization(
@@ -26,14 +33,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      routes: Routes.myAppRoutes,
-      initialRoute: RouteNames.root,
+    return ScreenUtilInit(
+      designSize: const Size(430, 932),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightTheme,
+          routes: Routes.myAppRoutes,
+          initialRoute: RouteNames.root,
+        );
+      },
+      child: Root(),
     );
   }
 }

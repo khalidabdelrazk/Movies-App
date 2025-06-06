@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/core/model/movies_init_model.dart';
+import 'package:movies/core/utils/movie_card.dart';
 import 'package:movies/generated/locale_keys.g.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +20,9 @@ class _HomePageState extends State<HomePage> {
       height: double.infinity,
       child: Column(
         children: [
-          SizedBox(height: 100,),
+          SizedBox(
+            height: 100,
+          ),
           Text(LocaleKeys.profile_settings_avatar_label.tr()),
           Text(LocaleKeys.onboarding_explore_button.tr()),
           Text(LocaleKeys.authentication_confirm_password_label.tr()),
@@ -34,6 +38,15 @@ class _HomePageState extends State<HomePage> {
             },
             child: Text("press"),
           ),
+          MoviePosterCard(
+            movie: Movies(
+                mediumCoverImage:
+                    "https://yts.mx/assets/images/movies/bhool_chuk_maaf_2025/large-cover.jpg",
+                rating: 8.8),
+            onPressed: () {
+              // todo => Navigate to Movie detailed Screen
+            },
+          )
         ],
       ),
     );
