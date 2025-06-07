@@ -52,6 +52,7 @@ class MoviePosterCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Row(
+                  textDirection: TextDirection.ltr,
                   children: [
                     Text(
                       movie.rating?.toString() ?? '',
