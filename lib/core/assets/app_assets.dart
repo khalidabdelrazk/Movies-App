@@ -17,8 +17,8 @@ abstract class AppAssets {
   static const String empty          = '${_imgPath}empty.png';
   static const String forgetPassword = '${_imgPath}forget password.png';
 
-  static const String watchNow  = '${_svgPath}Available Now.png';
-  static const String available = '${_svgPath}Watch Now.png';
+  static const String available  = '${_imgPath}Available Now.png';
+  static const String watchNow = '${_imgPath}Watch Now.png';
 
   // --------------------------------------------------------------------------
 
