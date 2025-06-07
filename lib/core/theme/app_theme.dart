@@ -5,7 +5,7 @@ import 'package:movies/core/theme/app_colors.dart';
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.scaffoldBgColor,
-    fontFamily: GoogleFonts.roboto().fontFamily,
+    fontFamily: GoogleFonts.inter().fontFamily,
     primaryColor: AppColors.light,
     cardColor: AppColors.primaryYellowColor,
     appBarTheme: AppBarTheme(

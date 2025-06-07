@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
-class AppStyles {
+abstract class AppStyles {
   static TextStyle blackBold20 = GoogleFonts.inter(
       fontSize: 20.sp, fontWeight: FontWeight.bold, color: AppColors.black);
   static TextStyle primaryBold20 = GoogleFonts.inter(

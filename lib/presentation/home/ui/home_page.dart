@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/model/movies_init_model.dart';
+import 'package:movies/core/theme/app_styles.dart';
 import 'package:movies/core/utils/movie_card.dart';
 import 'package:movies/generated/locale_keys.g.dart';
 
@@ -23,10 +24,12 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 100,
           ),
-          Text(LocaleKeys.profile_settings_avatar_label.tr()),
-          Text(LocaleKeys.onboarding_explore_button.tr()),
+          Text(LocaleKeys.onboarding_explore_button.tr(),style: AppStyles.lightBold20,),
+          Text(LocaleKeys.onboarding_explore_button.tr(),style: AppStyles.lightBold20.copyWith(
+            fontSize: 20,
+          ),),
           Text(LocaleKeys.authentication_confirm_password_label.tr()),
-          Text('authentication.confirm_password_label'.tr()),
+          Text('authentication.confirm_password_label'.tr(),style: AppStyles.lightBold20,),
           ElevatedButton(
             onPressed: () {
               if (context.locale == Locale('en')) {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/core/constants/constants.dart';
 import 'package:movies/core/theme/app_colors.dart';
-import 'common/bottombar_item.dart';
+import 'package:movies/presentation/root/widgets/bottombar_item.dart';
 
 class Root extends StatefulWidget {
   const Root({super.key});
