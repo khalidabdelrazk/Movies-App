@@ -1,10 +1,196 @@
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:movies/core/assets/app_assets.dart';
+import 'package:movies/core/routes/route_names.dart';
+import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/core/theme/app_styles.dart';
+import 'package:movies/generated/locale_keys.g.dart';
 
-class Login extends StatelessWidget {
+import '../../../../core/di/di.dart';
+import '../../../../core/utils/custom_text_button.dart';
+import '../../../../core/utils/custom_text_field.dart';
+import '../cubit/authentication/auth_view_model.dart';
+
+class Login extends StatefulWidget {
   const Login({super.key});
 
   @override
+  LoginState createState() => LoginState();
+}
+
+class LoginState extends State<Login> {
+  AuthViewModel authViewModel = getIt<AuthViewModel>();
+
+  bool _obscurePassword = true; // State for password visibility
+
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: Colors.black, // Set background color to black
+      body: SingleChildScrollView(
+        // To prevent overflow on small screens when keyboard appears
+        padding: EdgeInsets.symmetric(horizontal: 19.sp),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 67.sp),
+            Image.asset(
+              AppAssets.moviesIcon,
+              height: 118.sp,
+              width: 121.sp,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(height: 69.sp),
+
+            Form(
+              key: authViewModel.formKey,
+              child: Column(
+                children: [
+                  // Email Input
+                  CustomTextField(
+                    controller: authViewModel.emailController,
+                    label: LocaleKeys.authentication_email_label.tr(),
+                    inputColor: AppColors.light,
+                    keyboardType: TextInputType.emailAddress,
+                    backgroundColor: AppColors.darkGray,
+                    prefixIcon: const Icon(Icons.email_outlined,
+                        color: AppColors.light),
+                  ),
+                  SizedBox(height: 15.sp),
+
+                  CustomTextField(
+                    controller: authViewModel.loginPasswordController,
+                    label: LocaleKeys.authentication_password_label.tr(),
+                    backgroundColor: AppColors.darkGray,
+                    inputColor: AppColors.light,
+                    maxLines: 1,
+                    prefixIcon:
+                        const Icon(Icons.lock_outline, color: AppColors.light),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: AppColors.light,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
+                    obscureText: _obscurePassword,
+                    borderColor: AppColors.transparent,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 5.sp),
+            // Forget Password
+            Align(
+              alignment: Alignment.centerRight,
+              child: CustomTextButton(
+                txt: LocaleKeys.authentication_forgot_password_button.tr(),
+                onPressed: () {
+                  // todo: forgetPassword
+                },
+                color: AppColors.primaryYellowColor,
+              ),
+            ),
+            SizedBox(height: 5.sp),
+
+            // Login Button (ElevatedButton)
+            ElevatedButton(
+                onPressed: () {
+                  // todo: login Logic
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryYellowColor,
+                  minimumSize: const Size(double.infinity, 55),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                ),
+                child: Text(
+                  LocaleKeys.authentication_login_button.tr(),
+                  style: AppStyles.darkRegular20,
+                )),
+
+            SizedBox(height: 5.sp),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  LocaleKeys.authentication_dont_have_account_prompt.tr(),
+                  style: AppStyles
+                      .lightRegular16, // Adjust color as per your theme
+                ),
+                CustomTextButton(
+                  txt: LocaleKeys.authentication_create_account_button.tr(),
+                  onPressed: () {
+                    // todo: navigate to Register
+                    Navigator.pushNamed(context, RouteNames.register);
+                  },
+                  color: AppColors.primaryYellowColor,
+                ),
+              ],
+            ),
+
+            SizedBox(height: 5.sp),
+
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: Divider(
+                        color: AppColors.primaryYellowColor, thickness: 1)),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.sp),
+                    child: Text(
+                      LocaleKeys.authentication_or_separator.tr(),
+                      style: AppStyles.primaryRegular14,
+                    )),
+                Expanded(
+                    child: Divider(
+                        color: AppColors.primaryYellowColor, thickness: 1)),
+              ],
+            ),
+            SizedBox(height: 15.sp),
+
+            ElevatedButton(
+              onPressed: () {
+                // todo: nothing
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    AppColors.primaryYellowColor, // Your yellow/orange color
+                minimumSize: Size(double.infinity, 55.sp), // Full width, height
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10), // Rounded corners
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(
+                    AntDesign.google_outline,
+                    color: AppColors.scaffoldBgColor,
+                    size: 26.sp,
+                  ),
+                  SizedBox(width: 10.sp),
+                  Text(
+                    LocaleKeys.authentication_login_with_google_button.tr(),
+                    style: AppStyles.darkRegular20.copyWith(fontSize: 16.sp),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 40.sp),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -14,11 +14,17 @@ class AvatarCarousel extends StatefulWidget {
 
 class _AvatarCarouselState extends State<AvatarCarousel> {
   int selectedIndex = 0;
+  late List<String> avatars;
 
-  List<String> avatars = List.generate(
-    9,
-        (index) => 'assets/svg/gamer ${index + 1}.svg',
-  );
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    avatars = List.generate(
+      9,
+          (index) => 'assets/svg/gamer ${index + 1}.svg',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +42,7 @@ class _AvatarCarouselState extends State<AvatarCarousel> {
             },
           ),
           itemBuilder: (context, index, realIdx) {
+            print(avatars[index]);
             return CircleAvatar(
               radius: 40.sp,
               backgroundColor: Colors.white,

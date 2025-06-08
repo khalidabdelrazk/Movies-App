@@ -14,8 +14,9 @@ import '../../../../core/utils/custom_text_field.dart';
 import '../../../../core/utils/dialog_utils.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../../generated/locale_keys.g.dart';
-import '../cubit/Register/register_states.dart';
-import '../cubit/Register/register_view_model.dart';
+import '../cubit/authentication/auth_states.dart';
+import '../cubit/authentication/auth_view_model.dart';
+
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -25,7 +26,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  RegisterViewModel registerViewModel = getIt<RegisterViewModel>();
+  AuthViewModel authViewModel = getIt<AuthViewModel>();
   bool hidePassword = true;
   int selectedAvatar = 0;
 
@@ -33,7 +34,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return BlocListener(
-      bloc: registerViewModel,
+      bloc: authViewModel,
       listener: (context, state) {
         if (state is ShowLoading) {
           return DialogUtils.showLoading(
@@ -83,14 +84,14 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   Form(
-                    key: registerViewModel.formKey,
+                    key: authViewModel.formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomTextField(
                           label: LocaleKeys.authentication_name_label.tr(),
                           labelColor: AppColors.light,
-                          controller: registerViewModel.nameController,
+                          controller: authViewModel.nameController,
                           borderColor: AppColors.transparent,
                           prefixIcon: Padding(
                             padding: EdgeInsets.all(12.sp),
@@ -108,7 +109,7 @@ class _RegisterState extends State<Register> {
                         CustomTextField(
                           label: LocaleKeys.authentication_email_label.tr(),
                           labelColor: AppColors.light,
-                          controller: registerViewModel.emailController,
+                          controller: authViewModel.emailController,
                           borderColor: AppColors.transparent,
                           prefixIcon: Padding(
                             padding: EdgeInsets.all(12.sp),
@@ -128,7 +129,7 @@ class _RegisterState extends State<Register> {
                               .tr()
                               .tr(),
                           labelColor: AppColors.light,
-                          controller: registerViewModel.passwordController,
+                          controller: authViewModel.passwordController,
                           borderColor: AppColors.transparent,
                           prefixIcon: Padding(
                             padding: EdgeInsets.all(12.sp),
@@ -151,7 +152,7 @@ class _RegisterState extends State<Register> {
                               .authentication_confirm_password_label
                               .tr(),
                           labelColor: AppColors.light,
-                          controller: registerViewModel.rePasswordController,
+                          controller: authViewModel.rePasswordController,
                           borderColor: AppColors.transparent,
                           prefixIcon: Padding(
                             padding: EdgeInsets.all(12.sp),
@@ -165,7 +166,7 @@ class _RegisterState extends State<Register> {
                           // keyboardType: TextInputType.visiblePassword,
                           validator: (p0) =>
                               AppValidators.validateConfirmPassword(p0,
-                                  registerViewModel.passwordController.text),
+                                  authViewModel.passwordController.text),
                           inputColor: AppColors.light,
                           maxLines: 1,
                           suffixIcon: passwordSuffixIcon(),
@@ -175,7 +176,7 @@ class _RegisterState extends State<Register> {
                           label:
                               LocaleKeys.authentication_phone_number_label.tr(),
                           labelColor: AppColors.light,
-                          controller: registerViewModel.phoneController,
+                          controller: authViewModel.phoneController,
                           borderColor: AppColors.transparent,
                           prefixIcon: Padding(
                             padding: EdgeInsets.all(12.sp),
@@ -205,7 +206,7 @@ class _RegisterState extends State<Register> {
                             borderRadius: BorderRadius.circular(16),
                           )),
                       onPressed: () async{
-                        await registerViewModel.register(selectedAvatar);
+                        await authViewModel.register(selectedAvatar);
                       },
                       child: Text(
                         LocaleKeys.authentication_create_account_button.tr(),
