@@ -41,5 +41,5 @@ abstract class AppStyles {
       fontWeight: FontWeight.w400,
       color: AppColors.scaffoldBgColor);
   static TextStyle darkGrayRegular20 = GoogleFonts.inter(
-      fontSize: 20.sp, fontWeight: FontWeight.w400, color: AppColors.darkGray);
+      fontSize: 20.sp, fontWeight: FontWeight.w400, color: AppColors.gray);
 }
