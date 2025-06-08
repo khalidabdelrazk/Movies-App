@@ -9,12 +9,15 @@ import 'custom_image.dart';
 
 class MoviePosterCard extends StatelessWidget {
   final Movies movie;
+  final double? width, height;
   final VoidCallback? onPressed;
 
   const MoviePosterCard({
     super.key,
     required this.movie,
     this.onPressed,
+    this.width,
+    this.height,
   });
 
   @override
@@ -33,8 +36,8 @@ class MoviePosterCard extends StatelessWidget {
             // Movie Poster Image
             CustomImage(
               movie.mediumCoverImage ?? '',
-              width: 198.sp,
-              height: 279.sp,
+              width: width ?? 198.sp,
+              height: height ?? 279.sp,
               isNetwork: true,
               fit: BoxFit.cover,
               radius: 12.r,
