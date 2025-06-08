@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/core/theme/app_styles.dart';
 
 class AvatarCarousel extends StatefulWidget {
   final Function(int index) onAvatarSelected;
@@ -22,7 +24,7 @@ class _AvatarCarouselState extends State<AvatarCarousel> {
     super.initState();
     avatars = List.generate(
       9,
-          (index) => 'assets/svg/gamer ${index + 1}.svg',
+          (index) => 'assets/images/gamer ${index + 1}.png',
     );
   }
 
@@ -45,19 +47,17 @@ class _AvatarCarouselState extends State<AvatarCarousel> {
             print(avatars[index]);
             return CircleAvatar(
               radius: 40.sp,
-              backgroundColor: Colors.white,
-              child: SvgPicture.asset(
+              backgroundColor: AppColors.transparent,
+              child: Image.asset(
                 avatars[index],
                 width: 50.sp,
                 height: 50.sp,
-                placeholderBuilder: (context) =>
-                const CircularProgressIndicator(),
               ),
             );
           },
         ),
         SizedBox(height: 8.sp),
-        Text("Avatar", style: TextStyle(color: Colors.white, fontSize: 14.sp)),
+        Text("Avatar", style: AppStyles.lightRegular16),
       ],
     );
   }
