@@ -25,8 +25,8 @@ class MoviePosterCard extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: 198.sp,
-        height: 279.sp,
+        width:  width ?? 198.sp,
+        height: height ?? 279.sp,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),
@@ -36,7 +36,7 @@ class MoviePosterCard extends StatelessWidget {
             // Movie Poster Image
             CustomImage(
               movie.mediumCoverImage ?? '',
-              width: width ?? 198.sp,
+              width:  width ?? 198.sp,
               height: height ?? 279.sp,
               isNetwork: true,
               fit: BoxFit.cover,
