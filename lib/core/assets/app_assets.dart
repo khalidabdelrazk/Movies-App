@@ -17,8 +17,18 @@ abstract class AppAssets {
   static const String empty          = '${_imgPath}empty.png';
   static const String forgetPassword = '${_imgPath}forget password.png';
 
-  static const String watchNow  = '${_svgPath}Available Now.png';
-  static const String available = '${_svgPath}Watch Now.png';
+  static const String watchNow  = '${_imgPath}Available Now.png';
+  static const String available = '${_imgPath}Watch Now.png';
+
+  static const String profilePic1 = '${_imgPath}gamer 1.png';
+  static const String profilePic2 = '${_imgPath}gamer 2.png';
+  static const String profilePic3 = '${_imgPath}gamer 3.png';
+  static const String profilePic4 = '${_imgPath}gamer 4.png';
+  static const String profilePic5 = '${_imgPath}gamer 5.png';
+  static const String profilePic6 = '${_imgPath}gamer 6.png';
+  static const String profilePic7 = '${_imgPath}gamer 7.png';
+  static const String profilePic8 = '${_imgPath}gamer 8.png';
+  static const String profilePic9 = '${_imgPath}gamer 9.png';
 
   // --------------------------------------------------------------------------
 
@@ -47,13 +57,5 @@ abstract class AppAssets {
   static const String watchlist = '${_svgPath}watchlist.svg';
   static const String folder    = '${_svgPath}Folder.svg';
 
-  static const String profilePic1 = '${_svgPath}gamer 1.svg';
-  static const String profilePic2 = '${_svgPath}gamer 2.svg';
-  static const String profilePic3 = '${_svgPath}gamer 3.svg';
-  static const String profilePic4 = '${_svgPath}gamer 4.svg';
-  static const String profilePic5 = '${_svgPath}gamer 5.svg';
-  static const String profilePic6 = '${_svgPath}gamer 6.svg';
-  static const String profilePic7 = '${_svgPath}gamer 7.svg';
-  static const String profilePic8 = '${_svgPath}gamer 8.svg';
-  static const String profilePic9 = '${_svgPath}gamer 9.svg';
+
 }
