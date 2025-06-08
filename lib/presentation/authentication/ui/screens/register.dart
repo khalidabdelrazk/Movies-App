@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies/core/routes/route_names.dart';
+import 'package:movies/presentation/authentication/ui/screens/common/avatar_carousel.dart';
 import '../../../../core/assets/app_assets.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_styles.dart';
@@ -72,7 +73,9 @@ class _RegisterState extends State<Register> {
                 children: [
                   SizedBox(
                     height: height * 0.2,
-                    child: Image.asset(AppAssets.forgetPassword),
+                    child: AvatarCarousel(
+                      onAvatarSelected: (index) {},
+                    ),
                   ),
                   Form(
                     key: registerViewModel.formKey,
