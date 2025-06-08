@@ -46,4 +46,14 @@ abstract class AppAssets {
   static const String exit      = '${_svgPath}exit.svg';
   static const String watchlist = '${_svgPath}watchlist.svg';
   static const String folder    = '${_svgPath}Folder.svg';
+
+  static const String profilePic1 = '${_svgPath}gamer 1.svg';
+  static const String profilePic2 = '${_svgPath}gamer 2.svg';
+  static const String profilePic3 = '${_svgPath}gamer 3.svg';
+  static const String profilePic4 = '${_svgPath}gamer 4.svg';
+  static const String profilePic5 = '${_svgPath}gamer 5.svg';
+  static const String profilePic6 = '${_svgPath}gamer 6.svg';
+  static const String profilePic7 = '${_svgPath}gamer 7.svg';
+  static const String profilePic8 = '${_svgPath}gamer 8.svg';
+  static const String profilePic9 = '${_svgPath}gamer 9.svg';
 }
