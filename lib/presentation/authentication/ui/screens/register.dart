@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies/core/routes/route_names.dart';
 import 'package:movies/presentation/authentication/ui/screens/common/avatar_carousel.dart';
 import '../../../../core/assets/app_assets.dart';
+import '../../../../core/di/di.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_styles.dart';
 import '../../../../core/utils/custom_text_button.dart';
@@ -24,9 +25,9 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  // RegisterViewModel registerViewModel = getIt<RegisterViewModel>();
-  RegisterViewModel registerViewModel = RegisterViewModel();
+  RegisterViewModel registerViewModel = getIt<RegisterViewModel>();
   bool hidePassword = true;
+  int selectedAvatar = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +43,16 @@ class _RegisterState extends State<Register> {
           DialogUtils.hideLoading(context);
           return DialogUtils.showMessage(
             context: context,
-            message: 'error',
+            message: state.errorMessage,
             title: "Error",
             posActionName: 'Ok',
           );
         } else if (state is SuccessState) {
           DialogUtils.hideLoading(context);
-          return DialogUtils.showMessage(
+          DialogUtils.showMessage(
             context: context,
             message: 'Account Created Successfully',
-            title: "Success",
+            title: "Success ${state.response.data.name}",
             posActionName: 'Ok',
           );
         }
@@ -74,7 +75,11 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: height * 0.2,
                     child: AvatarCarousel(
-                      onAvatarSelected: (index) {},
+                      onAvatarSelected: (index) {
+                        setState(() {
+                          selectedAvatar = index;
+                        });
+                      },
                     ),
                   ),
                   Form(
@@ -96,7 +101,7 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                           keyboardType: TextInputType.text,
-                          validator: (p0) => AppValidators.validateUsername(p0),
+                          // validator: (p0) => AppValidators.validateUsername(p0),
                           inputColor: AppColors.light,
                         ),
                         SizedBox(height: height * 0.02),
@@ -181,8 +186,8 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                           keyboardType: TextInputType.phone,
-                          validator: (p0) =>
-                              AppValidators.validatePhoneNumber(p0),
+                          // validator: (p0) =>
+                          //     AppValidators.validatePhoneNumber(p0),
                           inputColor: AppColors.light,
                         ),
                       ],
@@ -199,7 +204,9 @@ class _RegisterState extends State<Register> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           )),
-                      onPressed: () {},
+                      onPressed: () async{
+                        await registerViewModel.register(selectedAvatar);
+                      },
                       child: Text(
                         LocaleKeys.authentication_create_account_button.tr(),
                         style: AppStyles.darkRegular20,

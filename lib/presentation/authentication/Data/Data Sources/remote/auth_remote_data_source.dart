@@ -1,0 +1,14 @@
+import 'package:either_dart/either.dart';
+import '../../../Domain/Entity/failures.dart';
+import '../../../Domain/Entity/register_response_entity.dart';
+
+abstract class AuthRemoteDataSource {
+  Future<Either<Failures, RegisterResponseEntity>> register(
+    String? name,
+    String? email,
+    String? password,
+    String? rePassword,
+    String? phone,
+      int? avatarId
+  );
+}

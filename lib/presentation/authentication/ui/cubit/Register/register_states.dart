@@ -1,9 +1,15 @@
-abstract class RegisterStates {}
+abstract class AuthStates {}
 
-class InitState extends RegisterStates {}
+class InitState extends AuthStates {}
 
-class ShowLoading extends RegisterStates {}
+class ShowLoading extends AuthStates {}
 
-class SuccessState extends RegisterStates {}
+class SuccessState extends AuthStates {
+  dynamic response;
+  SuccessState({required this.response});
+}
 
-class ErrorState extends RegisterStates {}
+class ErrorState extends AuthStates {
+  String errorMessage;
+  ErrorState({required this.errorMessage});
+}
