@@ -207,36 +207,6 @@ class LoginState extends State<Login> {
                   // TODO: Implement verify logic
                 },
               ),
-
-              // ElevatedButton(
-              //   onPressed: () {
-              //     // todo: nothing
-              //   },
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor:
-              //         AppColors.primaryYellowColor, // Your yellow/orange color
-              //     minimumSize:
-              //         Size(double.infinity, 55.sp), // Full width, height
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(10), // Rounded corners
-              //     ),
-              //   ),
-              //   child: Row(
-              //     mainAxisSize: MainAxisSize.min,
-              //     children: <Widget>[
-              //       Icon(
-              //         AntDesign.google_outline,
-              //         color: AppColors.scaffoldBgColor,
-              //         size: 26.sp,
-              //       ),
-              //       SizedBox(width: 10.sp),
-              //       Text(
-              //         LocaleKeys.authentication_login_with_google_button.tr(),
-              //         style: AppStyles.darkRegular20.copyWith(fontSize: 16.sp),
-              //       ),
-              //     ],
-              //   ),
-              // ),
               SizedBox(height: 40.sp),
             ],
           ),
