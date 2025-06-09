@@ -67,171 +67,169 @@ class _RegisterState extends State<Register> {
           centerTitle: true,
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.sp),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.2,
-                    child: AvatarCarousel(
-                      onAvatarSelected: (index) {
-                        setState(() {
-                          selectedAvatar = index;
-                        });
-                      },
-                    ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.sp),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: height * 0.2,
+                  child: AvatarCarousel(
+                    onAvatarSelected: (index) {
+                      setState(() {
+                        selectedAvatar = index;
+                      });
+                    },
                   ),
-                  Form(
-                    key: authViewModel.formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomTextField(
-                          label: LocaleKeys.authentication_name_label.tr(),
-                          labelColor: AppColors.light,
-                          controller: authViewModel.nameController,
-                          borderColor: AppColors.transparent,
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.all(12.sp),
-                            child: SvgPicture.asset(
-                              AppAssets.name,
-                              width: 25.sp,
-                              height: 25.sp,
-                            ),
-                          ),
-                          keyboardType: TextInputType.text,
-                          // validator: (p0) => AppValidators.validateUsername(p0),
-                          inputColor: AppColors.light,
-                        ),
-                        SizedBox(height: height * 0.02),
-                        CustomTextField(
-                          label: LocaleKeys.authentication_email_label.tr(),
-                          labelColor: AppColors.light,
-                          controller: authViewModel.emailController,
-                          borderColor: AppColors.transparent,
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.all(12.sp),
-                            child: SvgPicture.asset(
-                              AppAssets.email,
-                              width: 25.sp,
-                              height: 25.sp,
-                            ),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (p0) => AppValidators.validateEmail(p0),
-                          inputColor: AppColors.light,
-                        ),
-                        SizedBox(height: height * 0.02),
-                        CustomTextField(
-                          label: LocaleKeys.authentication_password_label
-                              .tr()
-                              .tr(),
-                          labelColor: AppColors.light,
-                          controller: authViewModel.passwordController,
-                          borderColor: AppColors.transparent,
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.all(12.sp),
-                            child: SvgPicture.asset(
-                              AppAssets.password,
-                              width: 25.sp,
-                              height: 25.sp,
-                            ),
-                          ),
-                          obscureText: hidePassword,
-                          maxLines: 1,
-                          // keyboardType: TextInputType.visiblePassword,
-                          validator: (p0) => AppValidators.validatePassword(p0),
-                          inputColor: AppColors.light,
-                          suffixIcon: passwordSuffixIcon(),
-                        ),
-                        SizedBox(height: height * 0.02),
-                        CustomTextField(
-                          label: LocaleKeys
-                              .authentication_confirm_password_label
-                              .tr(),
-                          labelColor: AppColors.light,
-                          controller: authViewModel.rePasswordController,
-                          borderColor: AppColors.transparent,
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.all(12.sp),
-                            child: SvgPicture.asset(
-                              AppAssets.password,
-                              width: 25.sp,
-                              height: 25.sp,
-                            ),
-                          ),
-                          obscureText: hidePassword,
-                          // keyboardType: TextInputType.visiblePassword,
-                          validator: (p0) =>
-                              AppValidators.validateConfirmPassword(p0,
-                                  authViewModel.passwordController.text),
-                          inputColor: AppColors.light,
-                          maxLines: 1,
-                          suffixIcon: passwordSuffixIcon(),
-                        ),
-                        SizedBox(height: height * 0.02),
-                        CustomTextField(
-                          label:
-                              LocaleKeys.authentication_phone_number_label.tr(),
-                          labelColor: AppColors.light,
-                          controller: authViewModel.phoneController,
-                          borderColor: AppColors.transparent,
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.all(12.sp),
-                            child: SvgPicture.asset(
-                              AppAssets.phone,
-                              width: 25.sp,
-                              height: 25.sp,
-                            ),
-                          ),
-                          keyboardType: TextInputType.phone,
-                          // validator: (p0) =>
-                          //     AppValidators.validatePhoneNumber(p0),
-                          inputColor: AppColors.light,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: height * 0.03),
-                  SizedBox(
-                    height: 56.sp,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primaryYellowColor,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          )),
-                      onPressed: () async{
-                        await authViewModel.register(selectedAvatar);
-                      },
-                      child: Text(
-                        LocaleKeys.authentication_create_account_button.tr(),
-                        style: AppStyles.darkRegular20,
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                Form(
+                  key: authViewModel.formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        LocaleKeys.authentication_already_have_account_prompt
-                            .tr(),
-                        style: AppStyles.lightRegular16,
+                      CustomTextField(
+                        label: LocaleKeys.authentication_name_label.tr(),
+                        labelColor: AppColors.light,
+                        controller: authViewModel.nameController,
+                        borderColor: AppColors.transparent,
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.all(12.sp),
+                          child: SvgPicture.asset(
+                            AppAssets.name,
+                            width: 25.sp,
+                            height: 25.sp,
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        // validator: (p0) => AppValidators.validateUsername(p0),
+                        inputColor: AppColors.light,
                       ),
-                      CustomTextButton(
-                        txt: LocaleKeys.authentication_login_link.tr(),
-                        onPressed: () {
-                          Navigator.pushNamed(context, RouteNames.login);
-                        },
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        label: LocaleKeys.authentication_email_label.tr(),
+                        labelColor: AppColors.light,
+                        controller: authViewModel.emailController,
+                        borderColor: AppColors.transparent,
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.all(12.sp),
+                          child: SvgPicture.asset(
+                            AppAssets.email,
+                            width: 25.sp,
+                            height: 25.sp,
+                          ),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (p0) => AppValidators.validateEmail(p0),
+                        inputColor: AppColors.light,
+                      ),
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        label: LocaleKeys.authentication_password_label
+                            .tr()
+                            .tr(),
+                        labelColor: AppColors.light,
+                        controller: authViewModel.passwordController,
+                        borderColor: AppColors.transparent,
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.all(12.sp),
+                          child: SvgPicture.asset(
+                            AppAssets.password,
+                            width: 25.sp,
+                            height: 25.sp,
+                          ),
+                        ),
+                        obscureText: hidePassword,
+                        maxLines: 1,
+                        // keyboardType: TextInputType.visiblePassword,
+                        validator: (p0) => AppValidators.validatePassword(p0),
+                        inputColor: AppColors.light,
+                        suffixIcon: passwordSuffixIcon(),
+                      ),
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        label: LocaleKeys
+                            .authentication_confirm_password_label
+                            .tr(),
+                        labelColor: AppColors.light,
+                        controller: authViewModel.rePasswordController,
+                        borderColor: AppColors.transparent,
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.all(12.sp),
+                          child: SvgPicture.asset(
+                            AppAssets.password,
+                            width: 25.sp,
+                            height: 25.sp,
+                          ),
+                        ),
+                        obscureText: hidePassword,
+                        // keyboardType: TextInputType.visiblePassword,
+                        validator: (p0) =>
+                            AppValidators.validateConfirmPassword(p0,
+                                authViewModel.passwordController.text),
+                        inputColor: AppColors.light,
+                        maxLines: 1,
+                        suffixIcon: passwordSuffixIcon(),
+                      ),
+                      SizedBox(height: height * 0.02),
+                      CustomTextField(
+                        label:
+                            LocaleKeys.authentication_phone_number_label.tr(),
+                        labelColor: AppColors.light,
+                        controller: authViewModel.phoneController,
+                        borderColor: AppColors.transparent,
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.all(12.sp),
+                          child: SvgPicture.asset(
+                            AppAssets.phone,
+                            width: 25.sp,
+                            height: 25.sp,
+                          ),
+                        ),
+                        keyboardType: TextInputType.phone,
+                        // validator: (p0) =>
+                        //     AppValidators.validatePhoneNumber(p0),
+                        inputColor: AppColors.light,
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: height * 0.03),
+                SizedBox(
+                  height: 56.sp,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryYellowColor,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        )),
+                    onPressed: () async{
+                      await authViewModel.register(selectedAvatar);
+                    },
+                    child: Text(
+                      LocaleKeys.authentication_create_account_button.tr(),
+                      style: AppStyles.darkRegular20,
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      LocaleKeys.authentication_already_have_account_prompt
+                          .tr(),
+                      style: AppStyles.lightRegular16,
+                    ),
+                    CustomTextButton(
+                      txt: LocaleKeys.authentication_login_link.tr(),
+                      onPressed: () {
+                        Navigator.pushNamed(context, RouteNames.login);
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
