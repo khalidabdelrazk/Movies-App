@@ -17,7 +17,7 @@ class SliderBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
       options: CarouselOptions(
-        height: height * 0.45,
+        height: height * 0.42,
         enlargeCenterPage: true,
         viewportFraction: 0.65,
         enableInfiniteScroll: true,
@@ -36,10 +36,9 @@ class SliderBuilder extends StatelessWidget {
               ),
             ],
           ),
-          child: ItemBuilder(slider: slider,index:index),
+          child: ItemBuilder(slider: slider, index: index),
         );
       },
     );
   }
 }
-
