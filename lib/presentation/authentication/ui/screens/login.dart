@@ -10,6 +10,7 @@ import 'package:movies/core/theme/app_styles.dart';
 import 'package:movies/generated/locale_keys.g.dart';
 
 import '../../../../core/di/di.dart';
+import '../../../../core/utils/custom_button.dart';
 import '../../../../core/utils/custom_text_button.dart';
 import '../../../../core/utils/custom_text_field.dart';
 import '../../../../core/utils/dialog_utils.dart';
@@ -123,29 +124,25 @@ class LoginState extends State<Login> {
                   txt: LocaleKeys.authentication_forgot_password_button.tr(),
                   onPressed: () {
                     // todo: forgetPassword
+                    Navigator.pushNamed(context, RouteNames.resetPassword);
                   },
                   color: AppColors.primaryYellowColor,
                 ),
               ),
               SizedBox(height: 5.sp),
 
-              // Login Button (ElevatedButton)
-              ElevatedButton(
-                  onPressed: () {
-                    // todo: login Logic
-                    authViewModel.login();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryYellowColor,
-                    minimumSize: const Size(double.infinity, 55),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                  ),
-                  child: Text(
-                    LocaleKeys.authentication_login_button.tr(),
-                    style: AppStyles.darkRegular20,
-                  )),
+              CustomButton(
+                body: Text(
+                  LocaleKeys.authentication_login_button.tr(),
+                  style: AppStyles.darkRegular20,
+                ),
+                color: AppColors.scaffoldBgColor,
+                backgroundColor: AppColors.primaryYellowColor,
+                onPressed: () {
+                  // todo: login Logic
+                  authViewModel.login();
+                },
+              ),
 
               SizedBox(height: 5.sp),
 
@@ -188,20 +185,8 @@ class LoginState extends State<Login> {
               ),
               SizedBox(height: 15.sp),
 
-              ElevatedButton(
-                onPressed: () {
-                  // todo: nothing
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      AppColors.primaryYellowColor, // Your yellow/orange color
-                  minimumSize:
-                      Size(double.infinity, 55.sp), // Full width, height
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), // Rounded corners
-                  ),
-                ),
-                child: Row(
+              CustomButton(
+                body: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Icon(
@@ -216,7 +201,42 @@ class LoginState extends State<Login> {
                     ),
                   ],
                 ),
+                color: AppColors.scaffoldBgColor,
+                backgroundColor: AppColors.primaryYellowColor,
+                onPressed: () {
+                  // TODO: Implement verify logic
+                },
               ),
+
+              // ElevatedButton(
+              //   onPressed: () {
+              //     // todo: nothing
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor:
+              //         AppColors.primaryYellowColor, // Your yellow/orange color
+              //     minimumSize:
+              //         Size(double.infinity, 55.sp), // Full width, height
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(10), // Rounded corners
+              //     ),
+              //   ),
+              //   child: Row(
+              //     mainAxisSize: MainAxisSize.min,
+              //     children: <Widget>[
+              //       Icon(
+              //         AntDesign.google_outline,
+              //         color: AppColors.scaffoldBgColor,
+              //         size: 26.sp,
+              //       ),
+              //       SizedBox(width: 10.sp),
+              //       Text(
+              //         LocaleKeys.authentication_login_with_google_button.tr(),
+              //         style: AppStyles.darkRegular20.copyWith(fontSize: 16.sp),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               SizedBox(height: 40.sp),
             ],
           ),

@@ -9,6 +9,7 @@ import '../../../../core/assets/app_assets.dart';
 import '../../../../core/di/di.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_styles.dart';
+import '../../../../core/utils/custom_button.dart';
 import '../../../../core/utils/custom_text_button.dart';
 import '../../../../core/utils/custom_text_field.dart';
 import '../../../../core/utils/dialog_utils.dart';
@@ -73,7 +74,6 @@ class _RegisterState extends State<Register> {
             child: Column(
               children: [
                 SizedBox(
-                  height: height * 0.2,
                   child: AvatarCarousel(
                     onAvatarSelected: (index) {
                       setState(() {
@@ -194,24 +194,18 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 SizedBox(height: height * 0.03),
-                SizedBox(
-                  height: 56.sp,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryYellowColor,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        )),
-                    onPressed: () async{
-                      await authViewModel.register(selectedAvatar);
-                    },
-                    child: Text(
-                      LocaleKeys.authentication_create_account_button.tr(),
-                      style: AppStyles.darkRegular20,
-                    ),
+                CustomButton(
+                  body: Text(
+                    LocaleKeys.authentication_create_account_button.tr(),
+                    style: AppStyles.darkRegular20,
                   ),
+                  color: AppColors.scaffoldBgColor,
+                  backgroundColor: AppColors.primaryYellowColor,
+                  onPressed: () async{
+                    // TODO: Implement verify logic
+                    await authViewModel.register(selectedAvatar);
+
+                  },
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
