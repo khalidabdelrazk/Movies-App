@@ -19,15 +19,7 @@ class _AvatarCarouselState extends State<AvatarCarousel> {
   int selectedIndex = 0;
   late List<String> avatars;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    avatars = List.generate(
-      9,
-          (index) => 'assets/images/gamer ${index + 1}.png',
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
