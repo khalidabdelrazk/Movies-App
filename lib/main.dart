@@ -9,12 +9,14 @@ import 'package:movies/generated/codegen_loader.g.dart';
 import 'package:movies/presentation/root/root.dart';
 import 'core/di/di.dart';
 import 'core/utils/my_bloc_observer.dart';
+import 'core/utils/shared_pref_services.dart';
 
 Future<void> main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   configureDependencies();
+  await SharedPrefService.instance.init();
 
   runApp(
     EasyLocalization(
@@ -45,10 +47,12 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           routes: Routes.myAppRoutes,
-          initialRoute: RouteNames.root,
+          initialRoute: isLoggedIn ? RouteNames.root : RouteNames.login,
         );
       },
       child: Root(),
     );
   }
+
+  bool get isLoggedIn => SharedPrefService.instance.getToken() != null;
 }
