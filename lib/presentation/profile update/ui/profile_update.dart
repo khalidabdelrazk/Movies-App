@@ -56,11 +56,12 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                   _showAvtarBottomSheet(
                     avtarsList,
                   );
+                  print("selectedAvatar: $selectedAvatar");
                   setState(() {});
                 },
                 child: Container(
                   child: Image.asset(
-                    AppAssets.profilePic1,
+                    selectedAvatar ?? AppAssets.profilePic1,
                     width: 150.w,
                     height: 150.h,
                     fit: BoxFit.cover,
@@ -197,6 +198,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
     );
   }
 
+  String selectedAvatar = AppAssets.profilePic1;
   void _showAvtarBottomSheet(List<String> avatars) async {
     final selectedIndex = await showModalBottomSheet<int>(
       context: context,
@@ -241,5 +243,11 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
         ),
       ),
     );
+
+    if (selectedIndex != null) {
+      setState(() {
+        selectedAvatar = avatars[selectedIndex];
+      });
+    }
   }
 }
