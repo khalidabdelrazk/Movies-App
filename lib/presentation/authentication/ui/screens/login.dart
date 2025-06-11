@@ -7,7 +7,9 @@ import 'package:movies/core/assets/app_assets.dart';
 import 'package:movies/core/routes/route_names.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/theme/app_styles.dart';
+import 'package:movies/core/utils/shared_pref_object.dart';
 import 'package:movies/generated/locale_keys.g.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/di/di.dart';
 import '../../../../core/utils/custom_button.dart';
@@ -26,6 +28,8 @@ class Login extends StatefulWidget {
 
 class LoginState extends State<Login> {
   AuthViewModel authViewModel = getIt<AuthViewModel>();
+  SharedPrefObject sharedPrefObject = SharedPrefObject();
+  late SharedPreferences prefs;
 
   bool _obscurePassword = true; // State for password visibility
 
@@ -33,7 +37,7 @@ class LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return BlocListener(
       bloc: authViewModel,
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is ShowLoading) {
           return DialogUtils.showLoading(
             context: context,
@@ -48,12 +52,16 @@ class LoginState extends State<Login> {
           );
         } else if (state is SuccessState) {
           DialogUtils.hideLoading(context);
+          prefs = await sharedPrefObject.getPrefs();
+          prefs.setString(SharedPrefObject.tokenKey, state.response.data);
           DialogUtils.showMessage(
-            context: context,
-            message: 'Login Successfully \n ${state.response.data}',
-            title: "Success",
-            posActionName: 'Ok',
-          );
+              context: context,
+              message: 'Login Successfully \n ${state.response.data}',
+              title: "Success",
+              posActionName: 'Ok',
+              posAction: () {
+                Navigator.pushReplacementNamed(context, RouteNames.root);
+              });
         }
       },
       child: Scaffold(
