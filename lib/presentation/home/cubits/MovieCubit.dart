@@ -7,28 +7,35 @@ import 'package:movies/presentation/home/MovieStates/states.dart';
 
 class MoviesCubit extends Cubit<MoviesState> {
   MoviesCubit() : super(MoviesLoading());
-
+ List<Movies> movies = [];
   Future<void> fetchMovies() async {
     emit(MoviesLoading());
-
+ 
     try {
-      
       emit(MoviesLoading());
-        var response = await apiManager.getData(path: ApiEndpoints.listMovies) ;
+      var response = await apiManager.getData(path: ApiEndpoints.listMovies);
 
-        if (response.statusCode! <200||response.statusCode!>=300){
-          emit(MoviesError( response.statusMessage!));
-          return ;
-        }
+      if (response.statusCode! < 200 || response.statusCode! >= 300) {
+        emit(MoviesError(response.statusMessage!));
+        return;
+      }
 
-        if (response.statusCode! >=200&&response.statusCode!<300){
-          final moviesResponse = MoviesResponse.fromJson(response.data);
-
-            emit(MoviesSucess(moviesResponse.data!.movies??[]));
-          return ;
-        }
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        final moviesResponse = MoviesResponse.fromJson(response.data);
+      final movies=  moviesResponse.data!.movies ?? [];
+        emit(MoviesSucess(movies));
+        return;
+      }
     } catch (e) {
       emit(MoviesError('Connection error: ${e.toString()}'));
+    }
+  }
+
+  Movies? getMovieById(int id) {
+    try {
+      return movies.firstWhere((movie) => movie.id == id);
+    } catch (e) {
+      return null;
     }
   }
 }

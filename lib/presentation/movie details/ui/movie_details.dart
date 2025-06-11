@@ -15,11 +15,13 @@ import 'package:movies/generated/locale_keys.g.dart';
 import 'package:movies/presentation/movie%20details/ui/GenreChip.dart';
 
 class MovieDetails extends StatelessWidget {
-  MovieDetails({super.key, this.movie});
-  final Movies? movie;
+  MovieDetails({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final movies = ModalRoute.of(context)!.settings.arguments as Movies;
     var width = MediaQuery.of(context).size.width;
     return ListView(
       children: [
@@ -33,7 +35,7 @@ class MovieDetails extends StatelessWidget {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(AppAssets.onBoarding2),
+                    image: NetworkImage('${movies.mediumCoverImage ?? ''}'),
                     fit: BoxFit.fill,
                   ),
                   boxShadow: [
@@ -91,11 +93,11 @@ class MovieDetails extends StatelessWidget {
                               ),
                               CustomMovieRating(
                                 image: AppAssets.timer,
-                                movie: Movies(rating: 90),
+                                movie: Movies(runtime: movies.runtime!.toInt()),
                               ),
                               CustomMovieRating(
                                 image: AppAssets.star,
-                                movie: Movies(rating: 7.6),
+                                movie: Movies(rating: movies.rating),
                               ),
                             ],
                           )
@@ -107,15 +109,15 @@ class MovieDetails extends StatelessWidget {
               ),
               SizedBox(height: 8.r),
               Text(
-                "Screan Shots",
+                "Screen Shots",
                 style: AppStyles.lightBold24,
               ),
               SizedBox(height: 12.r),
-              CostumScreanShots(image: AppAssets.onBoarding2),
+              CostumScreanShots(image: movies.backgroundImage ?? ''),
               SizedBox(height: 12.r),
-              CostumScreanShots(image: AppAssets.onBoarding3),
+              CostumScreanShots(image: movies.backgroundImage ?? ''),
               SizedBox(height: 12.r),
-              CostumScreanShots(image: AppAssets.onBoarding4),
+              CostumScreanShots(image: movies.backgroundImage ?? ''),
               SizedBox(height: 15.r),
               Text(
                 "Similarty",
@@ -152,7 +154,7 @@ class MovieDetails extends StatelessWidget {
               ),
               SizedBox(height: 15.r),
               Text(
-                "Following the events of Spider-Man No Way Home, Doctor Strange unwittingly casts a forbidden spell that accidentally opens up the multiverse. With help from Wong and Scarlet Witch, Strange confronts various versions of himself as well as teaming up with the young America Chavez while traveling through various realities and working to restore reality as he knows it. Along the way, Strange and his allies realize they must take on a powerful new adversary who seeks to take over the multiverse.—Blazer346",
+                movies.descriptionFull ?? 'No descrition available',
                 style: AppStyles.lightRegular16,
               ),
               Text(
