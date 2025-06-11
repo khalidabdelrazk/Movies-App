@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/core/model/movies_response.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/presentation/home/ui/itemBuilder.dart';
 
@@ -11,7 +12,7 @@ class SliderBuilder extends StatelessWidget {
   });
 
   final double height;
-  final List<String> slider;
+  final List<Movies> slider;
 
   @override
   Widget build(BuildContext context) {

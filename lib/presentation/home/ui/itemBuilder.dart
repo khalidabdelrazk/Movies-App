@@ -1,28 +1,52 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/core/model/movies_response.dart';
 import 'package:movies/core/theme/app_colors.dart';
 
 class ItemBuilder extends StatelessWidget {
-   ItemBuilder({
+  ItemBuilder({
     super.key,
     required this.slider,
     required this.index,
-    this.newithdth=0,
+    this.ratting = '',
   });
 
-  final List<String> slider;
+  final List<Movies> slider;
   final int index;
-  double newithdth=0;
+  String ratting;
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Stack(
         children: [
-          Image.asset(slider[index],
-              fit: BoxFit.cover, width: double.infinity ),
+          CachedNetworkImage(
+            imageUrl: slider[index].mediumCoverImage ?? '',
+            width: double.infinity,
+            fit: BoxFit.cover,
+            placeholder: (context, url) => Center(
+              child: CircularProgressIndicator(),
+            ),
+            errorWidget: (context, url, error) {
+              print('Error loading image: $error');
+              return Container(
+                color: Colors.black12,
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.broken_image, size: 40, color: AppColors.light),
+                    SizedBox(height: 8),
+                    Text('Image not available'),
+                  ],
+                ),
+              );
+            },
+          ),
           // Rating Badge
           Positioned(
             top: 10,
@@ -35,9 +59,13 @@ class ItemBuilder extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Text("7.7",
-                      style: TextStyle(
-                          color: AppColors.light, fontWeight: FontWeight.bold)),
+                  Text(
+                    '${slider[index].rating ?? ''}',
+                    style: TextStyle(
+                      color: AppColors.light,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   SizedBox(width: 4),
                   Icon(Icons.star,
                       color: AppColors.primaryYellowColor, size: 16),
@@ -49,4 +77,4 @@ class ItemBuilder extends StatelessWidget {
       ),
     );
   }
-}//LocaleKeys.onboarding_explore_button.tr()
+}
