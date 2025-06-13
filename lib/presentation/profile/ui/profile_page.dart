@@ -23,7 +23,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   ProfilePageViewModel viewModel = getIt<ProfilePageViewModel>();
   int selectedIndex = 0;
-  
   @override
   void initState() {
     super.initState();
@@ -32,21 +31,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<ProfilePageViewModel, ProfilePageStates>(
-        bloc: viewModel,
-        builder: (context, state) {
-          // Debug print to see current state
-          print("Current state: ${state.runtimeType}");
-          
-          if (state is ProfileLoadingState) {
-            return const SafeArea(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          } else if (state is ProfileErrorState) {
-            return SafeArea(
+    return BlocBuilder<ProfilePageViewModel, ProfilePageStates>(
+      bloc: viewModel,
+      builder: (context, state) {
+        if (state is ProfileLoadingState) {
+          return const SafeArea(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (state is ProfileErrorState) {
+        return SafeArea(
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -69,21 +64,21 @@ class _ProfilePageState extends State<ProfilePage> {
                         style: AppStyles.lightRegular16,
                         textAlign: TextAlign.center,
                       ),
-                    ),
-                    SizedBox(height: 24.h),
+                    ),SizedBox(height: 24.h),
                     CustomElvatedButton(
                       onPressed: () => viewModel.getData(),
                       text: 'Retry',
                       backgroundColor: AppColors.primaryYellowColor,
-                      textStyle: AppStyles.darkGrayRegular20,
+                      textStyle: AppStyles.darkRegular20,
                     ),
                   ],
                 ),
               ),
             );
-          } else if (state is ProfileSuccessState) {
-            final user = state.getProfileResponseEntity.data;
-            return SafeArea(
+        } else if (state is ProfileSuccessState) {
+          final user = state.getProfileResponseEntity.data;
+          return Scaffold(
+            body: SafeArea(
               child: Column(
                 children: [
                   Container(
@@ -101,35 +96,16 @@ class _ProfilePageState extends State<ProfilePage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // User avatar
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(12.r),
-                                  child: Image.asset(
-                                    "assets/images/gamer ${user?.avaterId ?? 1}.png",
-                                    width: 118.w,
-                                    height: 118.h,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        width: 118.w,
-                                        height: 118.h,
-                                        decoration: BoxDecoration(
-                                          color: AppColors.primaryYellowColor,
-                                          borderRadius: BorderRadius.circular(12.r),
-                                        ),
-                                        child: Icon(
-                                          Icons.person,
-                                          size: 60.sp,
-                                          color: AppColors.darkGray,
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                //todo: get image
+                                Image.asset(
+                                  "assets/images/gamer ${user?.avaterId ?? 1}.png",
+                                  width: 118.w,
+                                  height: 118.h,
                                 ),
                                 SizedBox(height: 15.h),
-                                // User name
+                                //todo: get name
                                 Text(
-                                  user?.name ?? "User Name",
+                                  user?.name ?? "user Name",
                                   style: AppStyles.lightBold20,
                                 )
                               ],
@@ -137,28 +113,28 @@ class _ProfilePageState extends State<ProfilePage> {
                             Column(
                               children: [
                                 Text(
-                                  // Get actual wish list count from user data
-                                  "12",
+                                  //todo: get wish list count
+                                  "10",
                                   style: AppStyles.lightBold24,
                                 ),
                                 SizedBox(height: 15.h),
                                 Text(
                                   "Wish List",
-                                  style: AppStyles.lightRegular16,
+                                  style: AppStyles.lightBold24,
                                 ),
                               ],
                             ),
                             Column(
                               children: [
                                 Text(
-                                  // Get actual history count from user data
+                                  //todo: get history count
                                   "12",
                                   style: AppStyles.lightBold24,
                                 ),
                                 SizedBox(height: 15.h),
                                 Text(
                                   "History",
-                                  style: AppStyles.lightRegular16,
+                                  style: AppStyles.lightBold24,
                                 ),
                               ],
                             )
@@ -173,6 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 borderRadius: 12.r,
                                 backgroundColor: AppColors.primaryYellowColor,
                                 onPressed: () {
+                                  //todo: navigate to edit profile
                                   Navigator.pushNamed(
                                       context, RouteNames.profileUpdate);
                                 },
@@ -187,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 borderRadius: 12.r,
                                 backgroundColor: AppColors.red,
                                 onPressed: () {
-                                  _showExitDialog(context);
+                                  //todo: navigate to edit profile
                                 },
                                 text: "Exit",
                                 textStyle: AppStyles.darkRegular20,
@@ -201,29 +178,71 @@ class _ProfilePageState extends State<ProfilePage> {
                         Row(
                           children: [
                             Expanded(
-                              child: _buildTabButton(
-                                index: 1,
-                                icon: AppAssets.watchlist,
-                                title: "Wish List",
-                                isSelected: selectedIndex == 1,
+                              child: InkWell(
                                 onTap: () {
+                                  //todo : show Watch list
                                   setState(() {
                                     selectedIndex = 1;
                                   });
                                 },
+                                child: Container(
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                        AppAssets.watchlist,
+                                        height: 40.h,
+                                        width: 40.w,
+                                      ),
+                                      SizedBox(height: 8.h),
+                                      Text(
+                                        "Wish List",
+                                        style: AppStyles.lightRegular20,
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(top: 10.h),
+                                        height: 3.h,
+                                        width: double.infinity,
+                                        color: selectedIndex == 1
+                                            ? AppColors.primaryYellowColor
+                                            : AppColors.transparent,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                             Expanded(
-                              child: _buildTabButton(
-                                index: 2,
-                                icon: AppAssets.folder,
-                                title: "History",
-                                isSelected: selectedIndex == 2,
+                              child: InkWell(
                                 onTap: () {
+                                  //todo:show history
                                   setState(() {
                                     selectedIndex = 2;
                                   });
                                 },
+                                child: Container(
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                        AppAssets.folder,
+                                        height: 40.h,
+                                        width: 40.w,
+                                      ),
+                                      SizedBox(height: 8.h),
+                                      Text(
+                                        "History",
+                                        style: AppStyles.lightRegular20,
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(top: 10.h),
+                                        height: 3.h,
+                                        width: double.infinity,
+                                        color: selectedIndex == 2
+                                            ? AppColors.primaryYellowColor
+                                            : AppColors.transparent,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             )
                           ],
@@ -234,134 +253,28 @@ class _ProfilePageState extends State<ProfilePage> {
                   Expanded(
                     child: Container(
                       width: double.infinity,
-                      padding: EdgeInsets.all(16.w),
-                      child: _buildContent(),
+                      height: 800.h,
+                      child: selectedIndex == 0
+                          ? Center(
+                              child: Image.asset(
+                                AppAssets.empty,
+                                width: 124.w,
+                                height: 124.w,
+                              ),
+                            )
+                          : selectedIndex == 1
+                              ? WatchList()
+                              : HistoryList(),
                     ),
                   ),
                 ],
               ),
-            );
-          } else {
-            // Handle initial/unknown state - show loading instead of black screen
-            return const SafeArea(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        },
-      ),
-    );
-  }
-
-  Widget _buildTabButton({
-    required int index,
-    required String icon,
-    required String title,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Image.asset(
-            icon,
-            height: 40.h,
-            width: 40.w,
-            color: isSelected ? AppColors.primaryYellowColor : AppColors.light,
-          ),
-          SizedBox(height: 8.h),
-          Text(
-            title,
-            style: isSelected 
-                ? AppStyles.lightRegular16.copyWith(color: AppColors.primaryYellowColor)
-                : AppStyles.lightRegular16,
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 10.h),
-            height: 3.h,
-            width: double.infinity,
-            color: isSelected
-                ? AppColors.primaryYellowColor
-                : AppColors.transparent,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildContent() {
-    switch (selectedIndex) {
-      case 1:
-        return const WatchList();
-      case 2:
-        return const HistoryList();
-      default:
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                AppAssets.empty,
-                width: 124.w,
-                height: 124.h,
-              ),
-              SizedBox(height: 16.h),
-              Text(
-                "Select a tab to view content",
-                style: AppStyles.lightRegular16,
-              ),
-            ],
-          ),
-        );
-    }
-  }
-
-  void _showExitDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: AppColors.darkGray,
-          title: Text(
-            'Exit App',
-            style: AppStyles.lightBold20,
-          ),
-          content: Text(
-            'Are you sure you want to exit the app?',
-            style: AppStyles.lightRegular16,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'Cancel',
-                style: AppStyles.lightRegular16,
-              ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                // Add exit app functionality
-                // SystemNavigator.pop(); // Uncomment to actually exit
-              },
-              child: Text(
-                'Exit',
-                style: AppStyles.lightRegular16.copyWith(color: AppColors.red),
-              ),
-            ),
-          ],
-        );
+          );
+        } else {
+          return Container();
+        }
       },
     );
-  }
-
-  @override
-  void dispose() {
-    viewModel.close();
-    super.dispose();
   }
 }
