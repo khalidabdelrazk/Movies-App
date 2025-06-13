@@ -25,6 +25,7 @@ Future<void> main() async {
           'assets/translations', // <-- change the path of the translation files
       fallbackLocale: Locale('en'),
       assetLoader: CodegenLoader(),
+      
       child: MyApp(),
     ),
   );
