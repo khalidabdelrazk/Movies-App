@@ -60,7 +60,7 @@ extension GetItInjectableX on _i174.GetIt {
         authRemoteDataSource: gh<_i293.AuthRemoteDataSource>()));
     gh.factory<_i812.ProfilePageViewModel>(() => _i812.ProfilePageViewModel(
         profileGetUseCase: gh<_i952.ProfileGetUseCase>()));
-    gh.factory<_i216.ProfileRepositoryImpl>(() => _i216.ProfileRepositoryImpl(
+    gh.factory<_i339.ProfileRepository>(() => _i216.ProfileRepositoryImpl(
         getProfileRemoteDataSource: gh<_i182.GetProfileRemoteDataSource>()));
     gh.factory<_i105.AuthUseCase>(
         () => _i105.AuthUseCase(authRepository: gh<_i471.AuthRepository>()));

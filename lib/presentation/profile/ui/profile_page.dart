@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:movies/core/assets/app_assets.dart';
 import 'package:movies/core/di/di.dart';
 import 'package:movies/core/routes/route_names.dart';
@@ -22,234 +21,347 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-   ProfilePageViewModel viewModel = getIt<ProfilePageViewModel>(); 
-  int slectedIndex = 0;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   viewModel = viewModel =
-  //   viewModel.getData();
-  // }
+  ProfilePageViewModel viewModel = getIt<ProfilePageViewModel>();
+  int selectedIndex = 0;
+  
+  @override
+  void initState() {
+    super.initState();
+    viewModel.getData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => viewModel,
-      child: BlocBuilder<ProfilePageViewModel, ProfilePageStates>(
+    return Scaffold(
+      body: BlocBuilder<ProfilePageViewModel, ProfilePageStates>(
+        bloc: viewModel,
         builder: (context, state) {
+          // Debug print to see current state
+          print("Current state: ${state.runtimeType}");
+          
           if (state is ProfileLoadingState) {
-            DialogUtils.showLoading(context: context);
-            return const Center(child: CircularProgressIndicator());
+            return const SafeArea(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
           } else if (state is ProfileErrorState) {
-            DialogUtils.hideLoading(context);
-            DialogUtils.showMessage(
-                context: context,
-                message: state.failures.errorMessage,
-                title: 'Error',
-                posActionName: 'ok');
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is ProfileSuccessState) {
-            DialogUtils.hideLoading(context);
-            final user = state.getProfileResponseEntity.data;
-            return Scaffold(
-              body: SafeArea(
+            return SafeArea(
+              child: Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: double.infinity,
-                      height: 389.h,
-                      padding: EdgeInsets.only(
-                          top: 40.h, bottom: 0.h, left: 10.w, right: 10.w),
-                      color: AppColors.darkGray,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  //todo: get image
-                                  Image.asset(
-                                    "assets/images/gamer ${user?.avaterId ?? 1}.png",
-                                    width: 118.w,
-                                    height: 118.h,
-                                  ),
-                                  SizedBox(height: 15.h),
-                                  //todo: get name
-                                  Text(
-                                    user?.name ?? "user Name",
-                                    style: AppStyles.lightBold20,
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Text(
-                                    //todo: get wish list count
-                                    "10",
-                                    style: AppStyles.lightBold24,
-                                  ),
-                                  SizedBox(height: 15.h),
-                                  Text(
-                                    "Wish List",
-                                    style: AppStyles.lightBold24,
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Text(
-                                    //todo: get history count
-                                    "12",
-                                    style: AppStyles.lightBold24,
-                                  ),
-                                  SizedBox(height: 15.h),
-                                  Text(
-                                    "History",
-                                    style: AppStyles.lightBold24,
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 16.h),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: CustomElvatedButton(
-                                  borderRadius: 12.r,
-                                  backgroundColor: AppColors.primaryYellowColor,
-                                  onPressed: () {
-                                    //todo: navigate to edit profile
-                                    Navigator.pushNamed(
-                                        context, RouteNames.profileUpdate);
-                                  },
-                                  text: "Edit Profile",
-                                  textStyle: AppStyles.darkRegular20,
-                                ),
-                              ),
-                              SizedBox(width: 10.w),
-                              Expanded(
-                                flex: 1,
-                                child: CustomElvatedButton(
-                                  borderRadius: 12.r,
-                                  backgroundColor: AppColors.red,
-                                  onPressed: () {
-                                    //todo: navigate to edit profile
-                                  },
-                                  text: "Exit",
-                                  textStyle: AppStyles.darkRegular20,
-                                  svgIcon: AppAssets.exit,
-                                  iconSize: 20.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20.h),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    //todo : show Watch list
-                                    setState(() {
-                                      slectedIndex = 1;
-                                    });
-                                  },
-                                  child: Container(
-                                    child: Column(
-                                      children: [
-                                        Image.asset(
-                                          AppAssets.watchlist,
-                                          height: 40.h,
-                                          width: 40.w,
-                                        ),
-                                        SizedBox(height: 8.h),
-                                        Text(
-                                          "Wish List",
-                                          style: AppStyles.lightRegular20,
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(top: 10.h),
-                                          height: 3.h,
-                                          width: double.infinity,
-                                          color: slectedIndex == 1
-                                              ? AppColors.primaryYellowColor
-                                              : AppColors.transparent,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    //todo:show history
-                                    setState(() {
-                                      slectedIndex = 2;
-                                    });
-                                  },
-                                  child: Container(
-                                    child: Column(
-                                      children: [
-                                        Image.asset(
-                                          AppAssets.folder,
-                                          height: 40.h,
-                                          width: 40.w,
-                                        ),
-                                        SizedBox(height: 8.h),
-                                        Text(
-                                          "History",
-                                          style: AppStyles.lightRegular20,
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(top: 10.h),
-                                          height: 3.h,
-                                          width: double.infinity,
-                                          color: slectedIndex == 2
-                                              ? AppColors.primaryYellowColor
-                                              : AppColors.transparent,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                    Icon(
+                      Icons.error_outline,
+                      size: 64.sp,
+                      color: AppColors.red,
+                    ),
+                    SizedBox(height: 16.h),
+                    Text(
+                      'Error',
+                      style: AppStyles.lightBold24,
+                    ),
+                    SizedBox(height: 8.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 32.w),
+                      child: Text(
+                        state.failures.errorMessage,
+                        style: AppStyles.lightRegular16,
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        height: 800.h,
-                        child: slectedIndex == 0
-                            ? Center(
-                                child: Image.asset(
-                                  AppAssets.empty,
-                                  width: 124.w,
-                                  height: 124.w,
-                                ),
-                              )
-                            : slectedIndex == 1
-                                ? WatchList()
-                                : HistoryList(),
-                      ),
+                    SizedBox(height: 24.h),
+                    CustomElvatedButton(
+                      onPressed: () => viewModel.getData(),
+                      text: 'Retry',
+                      backgroundColor: AppColors.primaryYellowColor,
+                      textStyle: AppStyles.darkGrayRegular20,
                     ),
                   ],
                 ),
               ),
             );
+          } else if (state is ProfileSuccessState) {
+            final user = state.getProfileResponseEntity.data;
+            return SafeArea(
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 389.h,
+                    padding: EdgeInsets.only(
+                        top: 40.h, bottom: 0.h, left: 10.w, right: 10.w),
+                    color: AppColors.darkGray,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // User avatar
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  child: Image.asset(
+                                    "assets/images/gamer ${user?.avaterId ?? 1}.png",
+                                    width: 118.w,
+                                    height: 118.h,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        width: 118.w,
+                                        height: 118.h,
+                                        decoration: BoxDecoration(
+                                          color: AppColors.primaryYellowColor,
+                                          borderRadius: BorderRadius.circular(12.r),
+                                        ),
+                                        child: Icon(
+                                          Icons.person,
+                                          size: 60.sp,
+                                          color: AppColors.darkGray,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: 15.h),
+                                // User name
+                                Text(
+                                  user?.name ?? "User Name",
+                                  style: AppStyles.lightBold20,
+                                )
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  // Get actual wish list count from user data
+                                  "12",
+                                  style: AppStyles.lightBold24,
+                                ),
+                                SizedBox(height: 15.h),
+                                Text(
+                                  "Wish List",
+                                  style: AppStyles.lightRegular16,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  // Get actual history count from user data
+                                  "12",
+                                  style: AppStyles.lightBold24,
+                                ),
+                                SizedBox(height: 15.h),
+                                Text(
+                                  "History",
+                                  style: AppStyles.lightRegular16,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 16.h),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: CustomElvatedButton(
+                                borderRadius: 12.r,
+                                backgroundColor: AppColors.primaryYellowColor,
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, RouteNames.profileUpdate);
+                                },
+                                text: "Edit Profile",
+                                textStyle: AppStyles.darkRegular20,
+                              ),
+                            ),
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              flex: 1,
+                              child: CustomElvatedButton(
+                                borderRadius: 12.r,
+                                backgroundColor: AppColors.red,
+                                onPressed: () {
+                                  _showExitDialog(context);
+                                },
+                                text: "Exit",
+                                textStyle: AppStyles.darkRegular20,
+                                svgIcon: AppAssets.exit,
+                                iconSize: 20.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20.h),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildTabButton(
+                                index: 1,
+                                icon: AppAssets.watchlist,
+                                title: "Wish List",
+                                isSelected: selectedIndex == 1,
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = 1;
+                                  });
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              child: _buildTabButton(
+                                index: 2,
+                                icon: AppAssets.folder,
+                                title: "History",
+                                isSelected: selectedIndex == 2,
+                                onTap: () {
+                                  setState(() {
+                                    selectedIndex = 2;
+                                  });
+                                },
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(16.w),
+                      child: _buildContent(),
+                    ),
+                  ),
+                ],
+              ),
+            );
           } else {
-            return Container();
+            // Handle initial/unknown state - show loading instead of black screen
+            return const SafeArea(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
           }
         },
       ),
     );
+  }
+
+  Widget _buildTabButton({
+    required int index,
+    required String icon,
+    required String title,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Image.asset(
+            icon,
+            height: 40.h,
+            width: 40.w,
+            color: isSelected ? AppColors.primaryYellowColor : AppColors.light,
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            title,
+            style: isSelected 
+                ? AppStyles.lightRegular16.copyWith(color: AppColors.primaryYellowColor)
+                : AppStyles.lightRegular16,
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 10.h),
+            height: 3.h,
+            width: double.infinity,
+            color: isSelected
+                ? AppColors.primaryYellowColor
+                : AppColors.transparent,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContent() {
+    switch (selectedIndex) {
+      case 1:
+        return const WatchList();
+      case 2:
+        return const HistoryList();
+      default:
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                AppAssets.empty,
+                width: 124.w,
+                height: 124.h,
+              ),
+              SizedBox(height: 16.h),
+              Text(
+                "Select a tab to view content",
+                style: AppStyles.lightRegular16,
+              ),
+            ],
+          ),
+        );
+    }
+  }
+
+  void _showExitDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: AppColors.darkGray,
+          title: Text(
+            'Exit App',
+            style: AppStyles.lightBold20,
+          ),
+          content: Text(
+            'Are you sure you want to exit the app?',
+            style: AppStyles.lightRegular16,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Cancel',
+                style: AppStyles.lightRegular16,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Add exit app functionality
+                // SystemNavigator.pop(); // Uncomment to actually exit
+              },
+              child: Text(
+                'Exit',
+                style: AppStyles.lightRegular16.copyWith(color: AppColors.red),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    viewModel.close();
+    super.dispose();
   }
 }

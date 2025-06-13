@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import 'package:movies/presentation/profile/Domain/use_cases/profile_get_use_case.dart';
 import 'package:movies/presentation/profile/ui/cubit/profile_page_states.dart';
+
 @injectable
 class ProfilePageViewModel extends Cubit<ProfilePageStates> {
   ProfileGetUseCase profileGetUseCase;
