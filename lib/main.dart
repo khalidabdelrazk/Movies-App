@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           routes: Routes.myAppRoutes,
-          initialRoute: RouteNames.root,
+          initialRoute: RouteNames.onboarding,
         );
       },
       child: Root(),

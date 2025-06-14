@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:movies/core/assets/app_assets.dart';
 import 'package:movies/core/theme/app_colors.dart';
 
-import '../model/movies_init_model.dart';
+import '../model/movies_response.dart';
 import 'custom_image.dart';
 
 class MoviePosterCard extends StatelessWidget {
@@ -55,6 +55,7 @@ class MoviePosterCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Row(
+                  textDirection: TextDirection.ltr,
                   children: [
                     Text(
                       movie.rating?.toString() ?? '',

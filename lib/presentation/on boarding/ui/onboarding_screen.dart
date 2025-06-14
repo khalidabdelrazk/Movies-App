@@ -8,210 +8,89 @@ import 'package:movies/core/theme/app_styles.dart';
 import 'package:movies/core/utils/custom_button.dart';
 import 'package:movies/generated/locale_keys.g.dart';
 import 'package:movies/main.dart';
+import 'package:movies/presentation/on%20boarding/ui/custom_page_view.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  
-
   const OnboardingScreen({super.key});
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-final introKey = GlobalKey<IntroductionScreenState>();
+  final introKey = GlobalKey<IntroductionScreenState>();
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    
+
     return IntroductionScreen(
       showBottomPart: false,
-      key: introKey ,
-      pages: [
-        PageViewModel(
-          titleWidget: Container(
-
-          ),
+      key: introKey,
+      rawPages: [
+        MovieIntroScreen(
           backgroundImage: AppAssets.onBoarding1,
-          bodyWidget: Container(
-      
-              margin: EdgeInsets.only(top: height * 0.10),
-            child: Column(
-              children: [
-                 Text(LocaleKeys.onboarding_onboarding_1_title.tr(),style: AppStyles.lightMedium36,
-                  textAlign: TextAlign.center,),
-                  SizedBox(height: height * 0.02,),
-                  Text(LocaleKeys.onboarding_onboarding_1_description.tr(),
-                  style: AppStyles.darkGrayRegular20,),
-                  SizedBox(height: height * 0.03,),
-                  
-                  CustomButton(body: Text(LocaleKeys.onboarding_explore_button.tr(),style: AppStyles.darkSemiBold20,),
-                  backgroundColor: null ,color: AppColors.primaryYellowColor,onPressed: (){
-                    introKey.currentState?.next();
-                  }),
-
-              ],
-            ),
-          )
+          color: AppColors.transparent,
+          title: LocaleKeys.onboarding_onboarding_1_title.tr(),
+          description: LocaleKeys.onboarding_onboarding_1_description.tr(),
+          nextText: LocaleKeys.onboarding_explore_button.tr(),
+          onNextPressed: () => introKey.currentState?.next(),
         ),
 
-       PageViewModel(
-          titleWidget: Container(
-          ),
+        MovieIntroScreen(
           backgroundImage: AppAssets.onBoarding2,
-          bodyWidget: Container(
-              margin: EdgeInsets.only(top: height * 0.13),
-            child: Column(
-              children: [
-                 Text(LocaleKeys.onboarding_onboarding_2_title.tr(),style: AppStyles.lightMedium36,
-                  textAlign: TextAlign.center,),
-                  SizedBox(height: height * 0.02,),
-                  Text(LocaleKeys.onboarding_onboarding_2_description.tr(),
-                  style: AppStyles.darkGrayRegular20,),
-                  SizedBox(height: height * 0.03,),
-                  
-                  CustomButton(body: Text(LocaleKeys.onboarding_next_button.tr(),style: AppStyles.darkSemiBold20,),
-                  backgroundColor: null ,color: AppColors.primaryYellowColor,onPressed: (){
-                    introKey.currentState?.next();
-                  }),
-
-              ],
-            ),
-          )
+          title: LocaleKeys.onboarding_onboarding_2_title.tr(),
+          description: LocaleKeys.onboarding_onboarding_2_description.tr(),
+          nextText: LocaleKeys.onboarding_next_button.tr(),
+          onNextPressed: () => introKey.currentState?.next(),
         ),
-         
 
-         PageViewModel(
-          titleWidget: Container(
-         
-          ),
+        MovieIntroScreen(
           backgroundImage: AppAssets.onBoarding3,
-          bodyWidget: Container(
-              margin: EdgeInsets.only(top: height * 0.09),
-            child: Column(
-              children: [
-                 Text(LocaleKeys.onboarding_onboarding_3_title.tr(),style: AppStyles.lightMedium36,
-                  textAlign: TextAlign.center,),
-                  // SizedBox(height: height * 0.02,),
-                  Text(LocaleKeys.onboarding_onboarding_3_description.tr(),
-                  style: AppStyles.darkGrayRegular20,),
-                  SizedBox(height: height * 0.03,),
-                  
-                  CustomButton(body: Text(LocaleKeys.onboarding_next_button.tr(),style: AppStyles.darkSemiBold20,),
-                  backgroundColor: null ,color: AppColors.primaryYellowColor,onPressed: (){
-                    introKey.currentState?.next();
-                  }),
-                  SizedBox(height: height * 0.02,),
-                  CustomButton(body: Text(LocaleKeys.onboarding_back_button.tr(),style: AppStyles.primaryBold20,),
-                  backgroundColor: AppColors.darkGray ,color: null,onPressed: (){
-                    introKey.currentState?.previous();
-                  },borderRadius: 2,),
-
-              ],
-            ),
-          )
+          title: LocaleKeys.onboarding_onboarding_2_title.tr(),
+          description: LocaleKeys.onboarding_onboarding_3_description.tr(),
+          nextText: LocaleKeys.onboarding_next_button.tr(),
+          backText: LocaleKeys.onboarding_back_button.tr(),
+          onNextPressed: () => introKey.currentState?.next(),
+          onBackPressed: () => introKey.currentState?.previous(),
         ),
 
-         PageViewModel(
-          titleWidget: Container(
-          ),
+         MovieIntroScreen(
           backgroundImage: AppAssets.onBoarding4,
-          bodyWidget: Container(
-              margin: EdgeInsets.only(top: height * 0.09),
-            child: Column(
-              children: [
-                 Text(LocaleKeys.onboarding_onboarding_4_title.tr(),style: AppStyles.lightMedium36,
-                  textAlign: TextAlign.center,),
-                  // SizedBox(height: height * 0.02,),
-                  Text(LocaleKeys.onboarding_onboarding_4_description.tr(),
-                  style: AppStyles.darkGrayRegular20,),
-                  SizedBox(height: height * 0.03,),
-                  
-                  CustomButton(body: Text(LocaleKeys.onboarding_next_button.tr(),style: AppStyles.darkSemiBold20,),
-                  backgroundColor: null ,color: AppColors.primaryYellowColor,onPressed: (){
-                    introKey.currentState?.next();
-                  }),
-                  SizedBox(height: height * 0.02,),
-                  CustomButton(body: Text(LocaleKeys.onboarding_back_button.tr(),style: AppStyles.primaryBold20,),
-                  backgroundColor: AppColors.darkGray ,color: null,onPressed: (){
-                    introKey.currentState?.previous();
-                  },borderRadius: 2,),
-
-              ],
-            ),
-          )
+          title: LocaleKeys.onboarding_onboarding_2_title.tr(),
+          description: LocaleKeys.onboarding_onboarding_4_description.tr(),
+          nextText: LocaleKeys.onboarding_next_button.tr(),
+          backText: LocaleKeys.onboarding_back_button.tr(),
+          onNextPressed: () => introKey.currentState?.next(),
+          onBackPressed: () => introKey.currentState?.previous(),
         ),
 
-         PageViewModel(
-          titleWidget: Container(
-            width: double.infinity,
-          ),
+         MovieIntroScreen(
           backgroundImage: AppAssets.onBoarding5,
-          bodyWidget: Container(
-              margin: EdgeInsets.only(top: height * 0.09),
-            child: Column(
-              children: [
-                 Text(LocaleKeys.onboarding_onboarding_5_title.tr(),style: AppStyles.lightMedium36,
-                  textAlign: TextAlign.center,),
-                  SizedBox(height: height * 0.02,),
-                  Text(LocaleKeys.onboarding_onboarding_5_description.tr(),
-                  style: AppStyles.darkGrayRegular20,),
-                  SizedBox(height: height * 0.03,),
-                  
-                  CustomButton(body: Text(LocaleKeys.onboarding_next_button.tr(),style: AppStyles.darkSemiBold20,),
-                  backgroundColor: null ,color: AppColors.primaryYellowColor,onPressed: (){
-                    introKey.currentState?.next();
-                  }),
-                  SizedBox(height: height * 0.02,),
-                  CustomButton(body: Text(LocaleKeys.onboarding_back_button.tr(),style: AppStyles.primaryBold20,),
-                  backgroundColor: AppColors.darkGray ,color: null,onPressed: (){
-                    introKey.currentState?.previous();
-                  },borderRadius: 2,),
-
-              ],
-            ),
-          )
+          title: LocaleKeys.onboarding_onboarding_5_title.tr(),
+          description: LocaleKeys.onboarding_onboarding_2_description.tr(),
+          nextText: LocaleKeys.onboarding_next_button.tr(),
+          backText: LocaleKeys.onboarding_back_button.tr(),
+          onNextPressed: () => introKey.currentState?.next(),
+          onBackPressed: () => introKey.currentState?.previous(),
         ),
 
-         PageViewModel(
-          titleWidget: Container(
-            width: double.infinity,
-          ),
+         MovieIntroScreen(
           backgroundImage: AppAssets.onBoarding6,
-          bodyWidget: Container(
-              margin: EdgeInsets.only(top: height * 0.15),
-            child: Column(
-              children: [
-                 Text(LocaleKeys.onboarding_onboarding_6_button.tr(),style: AppStyles.lightMedium36,
-                  textAlign: TextAlign.center,),
-                 
-                
-                  SizedBox(height: height * 0.03,),
-                  
-                  CustomButton(body: Text(LocaleKeys.onboarding_finish_button.tr(),style: AppStyles.darkSemiBold20,),
-                  backgroundColor: null ,color: AppColors.primaryYellowColor,onPressed: (){
-                    Navigator.pushReplacementNamed(context, RouteNames.login);
-                  }),
-                  SizedBox(height: height * 0.02,),
-                  CustomButton(body: Text(LocaleKeys.onboarding_back_button.tr(),style: AppStyles.primaryBold20,),
-                  backgroundColor: AppColors.darkGray ,color: null,onPressed: (){
-                    introKey.currentState?.previous();
-                  },borderRadius: 2,),
-
-              ],
-            ),
-          )
+          title: LocaleKeys.onboarding_onboarding_6_button.tr(),
+          nextText: LocaleKeys.onboarding_finish_button.tr(),
+          backText: LocaleKeys.onboarding_back_button.tr(),
+          onNextPressed: (){
+            introKey.currentState?.next();
+            Navigator.pushReplacementNamed(context, RouteNames.login);
+          },
+          onBackPressed: () => introKey.currentState?.previous(),
         ),
-        
       ],
-     
-       
-       
-       
-       
+
+
       showNextButton: false,
       showDoneButton: false,
       showBackButton: false,
-     );
+    );
   }
 }
