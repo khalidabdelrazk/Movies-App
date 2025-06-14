@@ -41,40 +41,40 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           );
         } else if (state is ProfileErrorState) {
-        return SafeArea(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.error_outline,
-                      size: 64.sp,
-                      color: AppColors.red,
+          return SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    size: 64.sp,
+                    color: AppColors.red,
+                  ),
+                  SizedBox(height: 16.h),
+                  Text(
+                    'Error',
+                    style: AppStyles.lightBold24,
+                  ),
+                  SizedBox(height: 8.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 32.w),
+                    child: Text(
+                      state.failures.errorMessage,
+                      style: AppStyles.lightRegular16,
+                      textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 16.h),
-                    Text(
-                      'Error',
-                      style: AppStyles.lightBold24,
-                    ),
-                    SizedBox(height: 8.h),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 32.w),
-                      child: Text(
-                        state.failures.errorMessage,
-                        style: AppStyles.lightRegular16,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),SizedBox(height: 24.h),
-                    CustomElvatedButton(
-                      onPressed: () => viewModel.getData(),
-                      text: 'Retry',
-                      backgroundColor: AppColors.primaryYellowColor,
-                      textStyle: AppStyles.darkRegular20,
-                    ),
-                  ],
-                ),
+                  ),SizedBox(height: 24.h),
+                  CustomElvatedButton(
+                    onPressed: () => viewModel.getData(),
+                    text: 'Retry',
+                    backgroundColor: AppColors.primaryYellowColor,
+                    textStyle: AppStyles.darkRegular20,
+                  ),
+                ],
               ),
-            );
+            ),
+          );
         } else if (state is ProfileSuccessState) {
           final user = state.getProfileResponseEntity.data;
           return Scaffold(
@@ -256,15 +256,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 800.h,
                       child: selectedIndex == 0
                           ? Center(
-                              child: Image.asset(
-                                AppAssets.empty,
-                                width: 124.w,
-                                height: 124.w,
-                              ),
-                            )
+                        child: Image.asset(
+                          AppAssets.empty,
+                          width: 124.w,
+                          height: 124.w,
+                        ),
+                      )
                           : selectedIndex == 1
-                              ? WatchList()
-                              : HistoryList(),
+                          ? WatchList()
+                          : HistoryList(),
                     ),
                   ),
                 ],
