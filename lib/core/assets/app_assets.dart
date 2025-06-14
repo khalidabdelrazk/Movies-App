@@ -19,6 +19,7 @@ abstract class AppAssets {
 
   static const String watchNow  = '${_imgPath}Available Now.png';
   static const String available = '${_imgPath}Watch Now.png';
+  static const String runMovie  = '${_imgPath}run now.png';
 
   static const String profilePic1 = '${_imgPath}gamer 1.png';
   static const String profilePic2 = '${_imgPath}gamer 2.png';

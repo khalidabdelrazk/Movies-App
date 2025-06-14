@@ -20,7 +20,7 @@ Future<void> main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en')], //startLocale: Locale('en'),
+      supportedLocales: [Locale('en'), Locale('ar')], //startLocale: Locale('en'),
       path:
           'assets/translations', // <-- change the path of the translation files
       fallbackLocale: Locale('en'),

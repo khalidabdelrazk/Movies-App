@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies/core/assets/app_assets.dart';
 import 'package:movies/core/di/di.dart';
 import 'package:movies/core/routes/route_names.dart';
@@ -188,10 +189,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Container(
                                   child: Column(
                                     children: [
-                                      Image.asset(
-                                        AppAssets.watchlist,
+                                      SizedBox(
+                                        width: 40.h,
                                         height: 40.h,
-                                        width: 40.w,
+                                        child: SvgPicture.asset(
+                                          AppAssets.watchlist,
+                                          height: 40.h,
+                                          width: 40.w,
+                                        ),
                                       ),
                                       SizedBox(height: 8.h),
                                       Text(
@@ -222,7 +227,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Container(
                                   child: Column(
                                     children: [
-                                      Image.asset(
+                                      SvgPicture.asset(
                                         AppAssets.folder,
                                         height: 40.h,
                                         width: 40.w,

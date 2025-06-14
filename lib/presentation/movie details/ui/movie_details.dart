@@ -15,7 +15,7 @@ import 'package:movies/generated/locale_keys.g.dart';
 import 'package:movies/presentation/movie%20details/ui/GenreChip.dart';
 
 class MovieDetails extends StatelessWidget {
-  MovieDetails({super.key, this.movie});
+  const MovieDetails({super.key, this.movie});
   final Movies? movie;
 
   @override
