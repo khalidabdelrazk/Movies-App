@@ -20,11 +20,12 @@ Future<void> main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en'), Locale('ar')],
+      supportedLocales: [Locale('en')], //startLocale: Locale('en'),
       path:
           'assets/translations', // <-- change the path of the translation files
       fallbackLocale: Locale('en'),
       assetLoader: CodegenLoader(),
+      
       child: MyApp(),
     ),
   );
@@ -47,12 +48,13 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           routes: Routes.myAppRoutes,
-          initialRoute: isLoggedIn ? RouteNames.root : RouteNames.login,
+          initialRoute: RouteNames.login,
+          //
         );
       },
       child: Root(),
     );
   }
 
-  bool get isLoggedIn => SharedPrefService.instance.getToken() != null;
+  // bool get isLoggedIn => SharedPrefService.instance.getToken() != null;
 }
