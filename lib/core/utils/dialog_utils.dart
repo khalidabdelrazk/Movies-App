@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../theme/app_colors.dart';
 
 
 class DialogUtils {
   static void showLoading(
       {required BuildContext context}) {
     showDialog(
-        barrierDismissible: false,
         context: context,
+        barrierDismissible: false,
         builder: (context) {
-          return AlertDialog(
-            content: Row(
-              children: [
-                const CircularProgressIndicator(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                )
-              ],
-            ),
+          return const Center(
+            child: CircularProgressIndicator(color: AppColors.darkGray,),
           );
         });
   }

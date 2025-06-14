@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/core/theme/app_colors.dart';
+import 'package:movies/core/theme/app_styles.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
@@ -12,7 +13,7 @@ class AppTheme {
       backgroundColor: AppColors.transparent,
       elevation: 0,
       centerTitle: true,
-      // titleTextStyle: darkMedium20,
+      titleTextStyle: AppStyles.primaryRegular16,
       iconTheme: IconThemeData(color: AppColors.primaryYellowColor),
     ),
     // textTheme: TextTheme(

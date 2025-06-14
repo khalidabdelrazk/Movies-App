@@ -13,7 +13,7 @@ abstract class Routes {
     RouteNames.root:          (_) => Root(),
     RouteNames.login:         (_) => Login(),
     RouteNames.register:      (_) => Register(),
-    RouteNames.onboarding:    (_) => Onboarding(),
+    RouteNames.onboarding:    (_) => OnboardingScreen(),
     RouteNames.movieDetails:  (_) => MovieDetails(),
     RouteNames.resetPassword: (_) => ResetPassword(),
     RouteNames.profileUpdate: (_) => ProfileUpdate(),

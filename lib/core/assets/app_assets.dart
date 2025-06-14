@@ -17,8 +17,19 @@ abstract class AppAssets {
   static const String empty          = '${_imgPath}empty.png';
   static const String forgetPassword = '${_imgPath}forget password.png';
 
-  static const String watchNow  = '${_svgPath}Available Now.png';
-  static const String available = '${_svgPath}Watch Now.png';
+  static const String watchNow  = '${_imgPath}Available Now.png';
+  static const String available = '${_imgPath}Watch Now.png';
+  static const String runMovie  = '${_imgPath}run now.png';
+
+  static const String profilePic1 = '${_imgPath}gamer 1.png';
+  static const String profilePic2 = '${_imgPath}gamer 2.png';
+  static const String profilePic3 = '${_imgPath}gamer 3.png';
+  static const String profilePic4 = '${_imgPath}gamer 4.png';
+  static const String profilePic5 = '${_imgPath}gamer 5.png';
+  static const String profilePic6 = '${_imgPath}gamer 6.png';
+  static const String profilePic7 = '${_imgPath}gamer 7.png';
+  static const String profilePic8 = '${_imgPath}gamer 8.png';
+  static const String profilePic9 = '${_imgPath}gamer 9.png';
 
   // --------------------------------------------------------------------------
 
@@ -46,4 +57,6 @@ abstract class AppAssets {
   static const String exit      = '${_svgPath}exit.svg';
   static const String watchlist = '${_svgPath}watchlist.svg';
   static const String folder    = '${_svgPath}Folder.svg';
+
+
 }
