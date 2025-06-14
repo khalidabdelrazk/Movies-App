@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/core/model/movies_init_model.dart';
 import 'package:movies/core/theme/app_styles.dart';
 import 'package:movies/core/utils/movie_card.dart';
 import 'package:movies/generated/locale_keys.g.dart';
-import '../../../core/model/movies_response.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
