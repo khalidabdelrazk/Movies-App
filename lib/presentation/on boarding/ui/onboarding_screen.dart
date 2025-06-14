@@ -6,6 +6,7 @@ import 'package:movies/core/routes/route_names.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/theme/app_styles.dart';
 import 'package:movies/core/utils/custom_button.dart';
+import 'package:movies/core/utils/shared_pref_services.dart';
 import 'package:movies/generated/locale_keys.g.dart';
 import 'package:movies/main.dart';
 import 'package:movies/presentation/on%20boarding/ui/custom_page_view.dart';
@@ -35,7 +36,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           nextText: LocaleKeys.onboarding_explore_button.tr(),
           onNextPressed: () => introKey.currentState?.next(),
         ),
-
         MovieIntroScreen(
           backgroundImage: AppAssets.onBoarding2,
           title: LocaleKeys.onboarding_onboarding_2_title.tr(),
@@ -43,7 +43,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           nextText: LocaleKeys.onboarding_next_button.tr(),
           onNextPressed: () => introKey.currentState?.next(),
         ),
-
         MovieIntroScreen(
           backgroundImage: AppAssets.onBoarding3,
           title: LocaleKeys.onboarding_onboarding_2_title.tr(),
@@ -53,8 +52,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           onNextPressed: () => introKey.currentState?.next(),
           onBackPressed: () => introKey.currentState?.previous(),
         ),
-
-         MovieIntroScreen(
+        MovieIntroScreen(
           backgroundImage: AppAssets.onBoarding4,
           title: LocaleKeys.onboarding_onboarding_2_title.tr(),
           description: LocaleKeys.onboarding_onboarding_4_description.tr(),
@@ -63,8 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           onNextPressed: () => introKey.currentState?.next(),
           onBackPressed: () => introKey.currentState?.previous(),
         ),
-
-         MovieIntroScreen(
+        MovieIntroScreen(
           backgroundImage: AppAssets.onBoarding5,
           title: LocaleKeys.onboarding_onboarding_5_title.tr(),
           description: LocaleKeys.onboarding_onboarding_2_description.tr(),
@@ -73,24 +70,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           onNextPressed: () => introKey.currentState?.next(),
           onBackPressed: () => introKey.currentState?.previous(),
         ),
-
-         MovieIntroScreen(
+        MovieIntroScreen(
           backgroundImage: AppAssets.onBoarding6,
           title: LocaleKeys.onboarding_onboarding_6_button.tr(),
           nextText: LocaleKeys.onboarding_finish_button.tr(),
           backText: LocaleKeys.onboarding_back_button.tr(),
-          onNextPressed: (){
+          onNextPressed: () async {
             introKey.currentState?.next();
-            Navigator.pushReplacementNamed(context, RouteNames.login);
+            await SharedPrefService.instance.setOnboardingViewed(true);
+            Navigator.pushReplacementNamed(
+                context, isLoggedIn ? RouteNames.root : RouteNames.login);
           },
           onBackPressed: () => introKey.currentState?.previous(),
         ),
       ],
-
-
       showNextButton: false,
       showDoneButton: false,
       showBackButton: false,
     );
   }
+
+  bool get isLoggedIn => SharedPrefService.instance.getToken() != null;
 }
