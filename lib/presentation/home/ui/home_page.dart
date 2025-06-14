@@ -54,87 +54,95 @@ class _HomePageState extends State<HomePage> {
             );
           } else if (state is MoviesSucess) {
             final movies = state.movies;
-            return SingleChildScrollView(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.black,
-                      blurRadius: 8,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                  image: DecorationImage(
-                    image: AssetImage(AppAssets.onBoarding6),
-                    fit: BoxFit.cover,
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.black,
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
                   ),
+                ],
+                image: DecorationImage(
+                  image: AssetImage(AppAssets.onBoarding6),
+                  fit: BoxFit.cover,
                 ),
+              ),
+              child: SingleChildScrollView(
                 child: Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                      EdgeInsets.symmetric(vertical: 16.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       SizedBox(height: height * 0.04),
-                      Image.asset(AppAssets.available),
+                      Image.asset(AppAssets.available,width: 267.w,height: 93.h,),
                       SizedBox(height: height * 0.03),
                       SliderBuilder(height: height, slider: state.movies),
                       SizedBox(height: height * 0.03),
-                      Image.asset(AppAssets.watchNow),
+                      SizedBox(width: 267.w,height: 93.h,child: Image.asset(AppAssets.watchNow,)),
                       SizedBox(height: height * 0.02),
-                      Row(
-                        children: [
-                          Text(
-                            '${state.movies[newIndex].genres ?? ''}',
-                            style: AppStyles.lightRegular20,
-                          ),
-                          const Spacer(),
-                          Text(
-                            "See more",
-                            style: AppStyles.primaryRegular16,
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 20,
-                            color: AppColors.primaryYellowColor,
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10.h),
-                      SizedBox(
-                        height: 260.sp,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: movies.length,
-                          itemBuilder: (context, index) {
-                            newIndex = index;
-                            final movie = movies[index];
-                            return Row(
+                      Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: 16.w),
+                        child: Column(
+                          children: [
+                            Row(
                               children: [
-                                MoviePosterCard(
-                                  width: 150.sp,
-                                  height: 250.sp,
-                                  movie: movie,
-                                  onPressed: () {
-                                    if (movies[index].genres !=
-                                        movies[newIndex].genres) {
-                                      setState(() {
-                                        newIndex = index;
-                                      });
-                                    }
-                                    Navigator.of(context)
-                                        .pushNamed(RouteNames.movieDetails);
-                                  },
+                                Text(
+                                  '${state.movies[newIndex].genres ?? ''}',
+                                  style: AppStyles.lightRegular20,
                                 ),
-                                SizedBox(width: 15.sp),
+                                const Spacer(),
+                                Text(
+                                  "See more",
+                                  style: AppStyles.primaryRegular16,
+                                ),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  size: 20,
+                                  color: AppColors.primaryYellowColor,
+                                ),
                               ],
-                            );
-                          },
+                            ),
+                            SizedBox(height: 10.h),
+                            SizedBox(
+                              height: 260.sp,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: movies.length,
+                                itemBuilder: (context, index) {
+                                  newIndex = index;
+                                  final movie = movies[index];
+                                  return Row(
+                                    children: [
+                                      MoviePosterCard(
+                                        width: 150.sp,
+                                        height: 250.sp,
+                                        movie: movie,
+                                        onPressed: () {
+                                          if (movies[index].genres !=
+                                              movies[newIndex].genres) {
+                                            setState(() {
+                                              newIndex = index;
+                                            });
+                                          }
+                                          Navigator.of(context)
+                                              .pushNamed(RouteNames.movieDetails);
+                                        },
+                                      ),
+                                      SizedBox(width: 15.sp),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(height: 55,),
+                          ],
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),

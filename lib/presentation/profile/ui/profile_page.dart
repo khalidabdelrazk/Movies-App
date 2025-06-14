@@ -8,11 +8,13 @@ import 'package:movies/core/routes/route_names.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/theme/app_styles.dart';
 import 'package:movies/core/utils/custom_elvated_button.dart';
-import 'package:movies/core/utils/dialog_utils.dart';
+import 'package:movies/core/utils/shared_pref_services.dart';
 import 'package:movies/presentation/profile/ui/cubit/profile_page_states.dart';
 import 'package:movies/presentation/profile/ui/cubit/profile_page_view_model.dart';
 import 'package:movies/presentation/profile/ui/history_list.dart';
 import 'package:movies/presentation/profile/ui/watch_list.dart';
+
+import '../../../core/utils/dialog_utils.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -23,7 +25,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   ProfilePageViewModel viewModel = getIt<ProfilePageViewModel>();
-  int selectedIndex = 0;
+  int selectedIndex = 1;
   @override
   void initState() {
     super.initState();
@@ -65,7 +67,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: AppStyles.lightRegular16,
                       textAlign: TextAlign.center,
                     ),
-                  ),SizedBox(height: 24.h),
+                  ),
+                  SizedBox(height: 24.h),
                   CustomElvatedButton(
                     onPressed: () => viewModel.getData(),
                     text: 'Retry',
@@ -165,7 +168,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 borderRadius: 12.r,
                                 backgroundColor: AppColors.red,
                                 onPressed: () {
-                                  //todo: navigate to edit profile
+                                  //todo: navigate to login
+                                  showLogoutConfirmationDialog(context);
                                 },
                                 text: "Exit",
                                 textStyle: AppStyles.darkRegular20,
@@ -261,15 +265,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 800.h,
                       child: selectedIndex == 0
                           ? Center(
-                        child: Image.asset(
-                          AppAssets.empty,
-                          width: 124.w,
-                          height: 124.w,
-                        ),
-                      )
+                              child: Image.asset(
+                                AppAssets.empty,
+                                width: 124.w,
+                                height: 124.w,
+                              ),
+                            )
                           : selectedIndex == 1
-                          ? WatchList()
-                          : HistoryList(),
+                              ? WatchList()
+                              : HistoryList(),
                     ),
                   ),
                 ],
@@ -280,6 +284,20 @@ class _ProfilePageState extends State<ProfilePage> {
           return Container();
         }
       },
+    );
+  }
+
+  void showLogoutConfirmationDialog(BuildContext context) {
+    DialogUtils.showMessage(
+      context: context,
+      title: 'Confirm Logout',
+      message: 'Are you sure you want to logout?',
+      posActionName: 'Yes',
+      posAction: () async {
+        await SharedPrefService.instance.clearToken();
+        Navigator.pushReplacementNamed(context, RouteNames.login);
+      },
+      negActionName: 'Cancel',
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/core/model/movies_response.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/presentation/home/ui/itemBuilder.dart';
@@ -18,7 +19,7 @@ class SliderBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
       options: CarouselOptions(
-        height: height * 0.42,
+        height: 351.h,
         enlargeCenterPage: true,
         viewportFraction: 0.65,
         enableInfiniteScroll: true,
@@ -30,11 +31,11 @@ class SliderBuilder extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
-              BoxShadow(
-                color: AppColors.black,
-                blurRadius: 8,
-                offset: Offset(0, 4),
-              ),
+              // BoxShadow(
+              //   color: AppColors.black,
+              //   blurRadius: 8,
+              //   offset: Offset(0, 4),
+              // ),
             ],
           ),
           child: ItemBuilder(slider: slider, index: index),
