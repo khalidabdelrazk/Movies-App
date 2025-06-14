@@ -4,11 +4,8 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:movies/core/assets/app_assets.dart';
 import 'package:movies/core/routes/route_names.dart';
 import 'package:movies/core/theme/app_colors.dart';
-import 'package:movies/core/theme/app_styles.dart';
-import 'package:movies/core/utils/custom_button.dart';
 import 'package:movies/core/utils/shared_pref_services.dart';
 import 'package:movies/generated/locale_keys.g.dart';
-import 'package:movies/main.dart';
 import 'package:movies/presentation/on%20boarding/ui/custom_page_view.dart';
 
 class OnboardingScreen extends StatefulWidget {
