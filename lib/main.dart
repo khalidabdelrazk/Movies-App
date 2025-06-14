@@ -9,20 +9,26 @@ import 'package:movies/generated/codegen_loader.g.dart';
 import 'package:movies/presentation/root/root.dart';
 import 'core/di/di.dart';
 import 'core/utils/my_bloc_observer.dart';
+import 'core/utils/shared_pref_services.dart';
 
 Future<void> main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   configureDependencies();
+  await SharedPrefService.instance.init();
 
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en'), Locale('ar')],
+      supportedLocales: [
+        Locale('en'),
+        Locale('ar')
+      ], //startLocale: Locale('en'),
       path:
           'assets/translations', // <-- change the path of the translation files
       fallbackLocale: Locale('en'),
       assetLoader: CodegenLoader(),
+
       child: MyApp(),
     ),
   );
@@ -45,10 +51,16 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           routes: Routes.myAppRoutes,
-          initialRoute: RouteNames.root,
+          initialRoute: isFirstOpened
+              ? (isLoggedIn ? RouteNames.root : RouteNames.login)
+              : RouteNames.onboarding,
+          //
         );
       },
       child: Root(),
     );
   }
+
+  bool get isLoggedIn => SharedPrefService.instance.getToken() != null;
+  bool get isFirstOpened => SharedPrefService.instance.isFirsTime() ?? false;
 }

@@ -13,9 +13,8 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final bool obscureText;
-  final IconData? prefixIcon;
-  final IconData? suffixIcon;
-  final VoidCallback? onSuffixPressed;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final String? Function(String?)? validator;
   final bool enabled;
   final int? maxLines;
@@ -31,7 +30,6 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.prefixIcon,
     this.suffixIcon,
-    this.onSuffixPressed,
     this.validator,
     this.enabled = true,
     this.maxLines,
@@ -63,20 +61,8 @@ class CustomTextField extends StatelessWidget {
           fontSize: 14,
           fontWeight: FontWeight.w400,
         ),
-        prefixIcon:
-            prefixIcon != null
-                ? Icon(prefixIcon, color: prefixIconColor)
-                : null,
-        suffixIcon:
-            suffixIcon != null
-                ? IconButton(
-                  icon: Icon(
-                    suffixIcon,
-                    color: suffixIconColor ?? AppColors.primaryYellowColor,
-                  ),
-                  onPressed: onSuffixPressed,
-                )
-                : null,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(

@@ -2,7 +2,7 @@ class ApiEndpoints {
   static const String moviesBaseUrl = "https://yts.mx/api/v2";
 
   // Movie Listing
-  static const String listMovies = "$moviesBaseUrl/list_movies.json";
+  static const String listMovies = "https://yts.mx/api/v2/list_movies.json";
   static const String listMoviesJsonp = "$moviesBaseUrl/list_movies.jsonp";
   static const String listMoviesXml = "$moviesBaseUrl/list_movies.xml";
 
