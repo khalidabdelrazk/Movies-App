@@ -9,6 +9,9 @@ class MoviesListApi {
     try {
       final response = await apiManager.getData(
         path: ApiEndpoints.listMovies,
+        queryParameters: {
+          "limit": 50
+        }
       );
     
       return MoviesResponse.fromJson(response.data);

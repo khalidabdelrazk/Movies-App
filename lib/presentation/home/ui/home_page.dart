@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:movies/core/assets/app_assets.dart';
 import 'package:movies/core/routes/route_names.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/theme/app_styles.dart';
-import 'package:movies/core/utils/movie_card.dart';
 import 'package:movies/presentation/home/MovieStates/states.dart';
 import 'package:movies/presentation/home/SliderBuilder.dart';
 import 'package:movies/presentation/home/cubits/MovieCubit.dart';
+import 'package:movies/core/model/movies_response.dart';
+
+import '../../../core/utils/movie_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,14 +22,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final MoviesCubit viewModel = MoviesCubit();
-  int newIndex = 0;
-
-  // List<String> slider = [
-  //   AppAssets.onBoarding1,
-  //   AppAssets.onBoarding2,
-  //   AppAssets.onBoarding3,
-  //   AppAssets.onBoarding4,
-  // ];
 
   @override
   void initState() {
@@ -34,10 +29,18 @@ class _HomePageState extends State<HomePage> {
     viewModel.fetchMovies();
   }
 
+  // Extract unique genres
+  List<String> getGenres(List<Movies> movies) {
+    final genresSet = <String>{};
+    for (var movie in movies) {
+      genresSet.addAll(movie.genres ?? []);
+    }
+    return genresSet.toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
+    final height = MediaQuery.of(context).size.height;
 
     return BlocProvider(
       create: (_) => viewModel,
@@ -47,13 +50,12 @@ class _HomePageState extends State<HomePage> {
             return const Center(child: CircularProgressIndicator());
           } else if (state is MoviesError) {
             return Center(
-              child: Text(
-                state.message,
-                style: AppStyles.primaryRegular16,
-              ),
+              child: Text(state.message, style: AppStyles.primaryRegular16),
             );
           } else if (state is MoviesSucess) {
             final movies = state.movies;
+            final genres = getGenres(movies);
+
             return Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -71,95 +73,87 @@ class _HomePageState extends State<HomePage> {
               ),
               child: SingleChildScrollView(
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 16.h),
+                  padding: EdgeInsets.symmetric(vertical: 16.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       SizedBox(height: height * 0.04),
-                      Image.asset(AppAssets.available,width: 267.w,height: 93.h,),
+                      Image.asset(AppAssets.available, width: 267.w, height: 93.h),
                       SizedBox(height: height * 0.03),
-                      SliderBuilder(height: height, slider: state.movies),
+                      SliderBuilder(height: height, slider: movies),
                       SizedBox(height: height * 0.03),
-                      SizedBox(width: 267.w,height: 93.h,child: Image.asset(AppAssets.watchNow,)),
+                      Image.asset(AppAssets.watchNow, width: 267.w, height: 93.h),
                       SizedBox(height: height * 0.02),
-                      Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 16.w),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  '${state.movies[newIndex].genres ?? ''}',
-                                  style: AppStyles.lightRegular20,
+
+                      // Genre sections
+                      ...genres.map((genre) {
+                        final genreMovies = movies
+                            .where((movie) => movie.genres?.contains(genre) ?? false)
+                            .toList();
+
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 24.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Genre header
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Row(
+                                  children: [
+                                    Text(genre, style: AppStyles.lightRegular20),
+                                    const Spacer(),
+                                    Text("See More", style: AppStyles.primaryRegular16),
+                                    Icon(Icons.arrow_forward,
+                                        size: 20.sp,
+                                        color: AppColors.primaryYellowColor),
+                                  ],
                                 ),
-                                const Spacer(),
-                                Text(
-                                  "See more",
-                                  style: AppStyles.primaryRegular16,
-                                ),
-                                Icon(
-                                  Icons.arrow_forward,
-                                  size: 20,
-                                  color: AppColors.primaryYellowColor,
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 10.h),
-                            SizedBox(
-                              height: 260.sp,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: movies.length,
-                                itemBuilder: (context, index) {
-                                  newIndex = index;
-                                  final movie = movies[index];
-                                  return Row(
-                                    children: [
-                                      MoviePosterCard(
-                                        width: 150.sp,
-                                        height: 250.sp,
+                              ),
+                              SizedBox(height: 10.h),
+
+                              // Movies in this genre
+                              SizedBox(
+                                height: 260.h,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: genreMovies.length,
+                                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                  itemBuilder: (context, index) {
+                                    final movie = genreMovies[index];
+                                    return Padding(
+                                      padding: EdgeInsets.only(right: 12.w),
+                                      child: MoviePosterCard(
+                                        width: 150.w,
+                                        height: 250.h,
                                         movie: movie,
                                         onPressed: () {
-                                          if (movies[index].genres !=
-                                              movies[newIndex].genres) {
-                                            setState(() {
-                                              newIndex = index;
-                                            });
-                                          }
-                                          Navigator.of(context)
-                                              .pushNamed(RouteNames.movieDetails);
+                                          Navigator.of(context).pushNamed(
+                                            RouteNames.movieDetails,
+                                            arguments: movie,
+                                          );
                                         },
                                       ),
-                                      SizedBox(width: 15.sp),
-                                    ],
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 55,),
-                          ],
-                        ),
-                      )
+                            ],
+                          ),
+                        );
+                      }).toList(),
+
+                      SizedBox(height: 40.h),
                     ],
                   ),
                 ),
               ),
             );
-          } else {
-            // Optional fallback
-            return const Center(child: Text("Something went wrong."));
           }
+
+          return const Center(child: Text("Something went wrong."));
         },
       ),
     );
-  }
-
-  void changeGrenIndex(int index) {
-    setState(() {
-      newIndex = index;
-    });
   }
 }
