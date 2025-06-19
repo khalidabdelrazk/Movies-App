@@ -8,11 +8,11 @@ class AvatarPicker extends StatelessWidget {
   final String selectedAvatar;
 
   const AvatarPicker({
-    Key? key,
+    super.key,
     required this.avatars,
     required this.onAvatarSelected,
     required this.selectedAvatar,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

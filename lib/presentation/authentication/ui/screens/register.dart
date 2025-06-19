@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies/core/routes/route_names.dart';
 import 'package:movies/presentation/authentication/ui/screens/common/avatar_carousel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/assets/app_assets.dart';
 import '../../../../core/di/di.dart';
 import '../../../../core/theme/app_colors.dart';

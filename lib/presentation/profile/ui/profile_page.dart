@@ -260,7 +260,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   Expanded(
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       height: 800.h,
                       child: selectedIndex == 0

@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies/core/assets/app_assets.dart';
-import 'package:movies/core/routes/route_names.dart';
 import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/theme/app_styles.dart';
 import 'package:movies/core/utils/custom_elvated_button.dart';
 import 'package:movies/core/utils/custom_text_field.dart';
 import 'package:movies/core/utils/validators.dart';
 import 'package:movies/generated/locale_keys.g.dart';
-import 'package:movies/presentation/profile%20update/ui/avatar_picker.dart';
 
 class ProfileUpdate extends StatefulWidget {
   const ProfileUpdate({super.key});

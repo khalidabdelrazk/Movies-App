@@ -13,6 +13,7 @@ class GetProfileResponseDm extends GetProfileResponseEntity {
     data = json['data'] != null ? GetDataDm.fromJson(json['data']) : null;
   }
 
+  @override
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['message'] = message;
@@ -49,10 +50,14 @@ class GetDataDm extends GetDataEntity {
     v = json['__v'];
   }
 
+  @override
   String? createdAt;
+  @override
   String? updatedAt;
+  @override
   int? v;
 
+  @override
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['_id'] = id;

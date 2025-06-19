@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:movies/core/assets/app_assets.dart';
 import 'package:movies/core/model/movies_response.dart';
 import 'package:movies/core/theme/app_colors.dart';
 

@@ -1,7 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/model/movies_response.dart';
-import 'package:movies/core/theme/app_colors.dart';
 import 'package:movies/core/utils/movie_card.dart';
 
 class ItemBuilder extends StatelessWidget {

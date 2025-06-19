@@ -1,9 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:movies/presentation/profile/Data/Data%20Sources/remote/get_wishlist_remote_data_source.dart';
 import 'package:movies/presentation/profile/Domain/entitys/wishlist_entity.dart';
-import 'package:movies/presentation/profile/Domain/repository/profile_repository.dart';
-import 'package:movies/presentation/profile/Domain/entitys/GetProfileResponseEntity.dart';
-import 'package:movies/presentation/profile/Data/Data Sources/remote/get_profile_remote_data_source.dart';
 import 'package:either_dart/either.dart';
 import 'package:movies/presentation/authentication/Domain/Entity/failures.dart';
 
