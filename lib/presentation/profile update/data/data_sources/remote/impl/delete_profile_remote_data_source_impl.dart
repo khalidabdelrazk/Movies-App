@@ -6,20 +6,17 @@ import 'package:movies/core/api%20manager/api_endpoints.dart';
 import 'package:movies/core/api%20manager/api_manager.dart';
 import 'package:movies/core/utils/shared_pref_services.dart';
 import 'package:movies/presentation/authentication/Domain/Entity/failures.dart';
-import 'package:movies/presentation/profile%20update/data/data_sources/remote/update_profile_remote_data_source.dart';
-import 'package:movies/presentation/profile%20update/data/models/UpdateResponseDm.dart';
+import 'package:movies/presentation/profile%20update/data/data_sources/remote/delete_profile_remote_data_source.dart';
+import 'package:movies/presentation/profile%20update/data/models/DeleteResponseDm.dart';
 
-@Injectable(as: UpdateProfileRemoteDataSource)
-class UpdateProfileRemoteDataSourceImpl
-    implements UpdateProfileRemoteDataSource {
+@Injectable(as: DeleteProfileRemoteDataSource)
+class DeleteProfileRemoteDataSourceImpl
+    implements DeleteProfileRemoteDataSource {
   ApiManager apiManager;
-  UpdateProfileRemoteDataSourceImpl({required this.apiManager});
+  DeleteProfileRemoteDataSourceImpl({required this.apiManager});
 
   @override
-  Future<Either<Failures, UpdateResponseDm>> update(
-      {required String name,
-      required String email,
-      required int avaterId}) async {
+  Future<Either<Failures, DeleteResponseDm>> delete() async {
     final List<ConnectivityResult> connectivityResult =
         await Connectivity().checkConnectivity();
 
@@ -41,18 +38,13 @@ class UpdateProfileRemoteDataSourceImpl
             },
             validateStatus: (status) => true,
           ),
-          data: {
-            "name": name,
-            "email": email,
-            "avaterId": avaterId,
-          },
         );
 
         print("RESPONSE Profile BODY: ${response.data}");
         print("STATUS Profile CODE: ${response.statusCode}");
 
-        final UpdateResponseDm profileResponse =
-            UpdateResponseDm.fromJson(response.data);
+        final DeleteResponseDm profileResponse =
+            DeleteResponseDm.fromJson(response.data);
 
         if (response.statusCode! >= 200 && response.statusCode! < 300) {
           return Right(profileResponse);

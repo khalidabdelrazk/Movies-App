@@ -11,8 +11,8 @@ class UpdateProfileUseCase {
   UpdateProfileUseCase({required this.updateProfileRepository});
 
   Future<Either<Failures, UpdateProfileResponseEntity>> invoke(
-      {required String name, required String phone, required int avaterId}) {
+      {required String name, required String email, required int avaterId}) {
     return updateProfileRepository.update(
-        name: name, phone: phone, avaterId: avaterId);
+        name: name, email: email, avaterId: avaterId);
   }
 }

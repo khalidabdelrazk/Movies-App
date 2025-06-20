@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:movies/presentation/profile%20update/domain/use_cases/delete_profile_use_case.dart';
 import 'package:movies/presentation/profile%20update/domain/use_cases/update_profile_use_case.dart';
 import 'package:movies/presentation/profile%20update/ui/cubit/profile_update_states.dart';
 
 @injectable
 class UpdateProfilePageViewModel extends Cubit<UpdateProfileStates> {
   UpdateProfileUseCase updateProfileUseCase;
+  DeleteProfileUseCase deleteProfileUseCase;
   TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   int? selectedAvatar;
 
-  UpdateProfilePageViewModel({required this.updateProfileUseCase})
+  UpdateProfilePageViewModel(
+      {required this.updateProfileUseCase, required this.deleteProfileUseCase})
       : super(UpdateProfileInitialState());
   //todo: hold Data - handle Logic
   void updateData() async {
@@ -20,11 +23,21 @@ class UpdateProfilePageViewModel extends Cubit<UpdateProfileStates> {
     final result = await updateProfileUseCase.invoke(
         avaterId: selectedAvatar ?? 1,
         name: nameController.text,
-        phone: phoneController.text);
+        email: emailController.text);
 
     result.fold(
         (error) => emit(UpdateProfileErrorState(failures: error)),
         (profileData) => emit(UpdateProfileSuccessState(
             updateProfileResponseEntity: profileData)));
+  }
+
+  void deleteProfile() async {
+    emit(DeleteProfileLoadingState());
+    final result = await deleteProfileUseCase.invoke();
+
+    result.fold(
+        (error) => emit(DeleteProfileErrorState(failures: error)),
+        (deleteResponse) => emit(DeleteProfileSuccessState(
+            deleteProfileResponseEntity: deleteResponse)));
   }
 }

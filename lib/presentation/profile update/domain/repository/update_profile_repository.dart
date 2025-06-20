@@ -5,5 +5,5 @@ import 'package:movies/presentation/profile/Domain/entitys/GetProfileResponseEnt
 
 abstract class UpdateProfileRepository {
   Future<Either<Failures, UpdateProfileResponseEntity>> update(
-     {required String name , required String phone,required int avaterId});
+      {required String name, required String email, required int avaterId});
 }

@@ -35,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfilePageViewModel, ProfilePageStates>(
-      bloc: viewModel,
+      bloc: viewModel..getData(),
       builder: (context, state) {
         if (state is ProfileLoadingState) {
           return const SafeArea(
@@ -158,7 +158,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       context, RouteNames.profileUpdate,
                                       arguments: {
                                         'name': user!.name,
-                                        'phone': user.phone,
+                                        'email': user.email,
                                         'avtarId': user.avaterId,
                                       });
                                 },

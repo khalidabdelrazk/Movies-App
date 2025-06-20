@@ -6,5 +6,5 @@ import 'package:movies/presentation/profile/Domain/entitys/GetProfileResponseEnt
 //todo:interface
 abstract class UpdateProfileRemoteDataSource {
   Future<Either<Failures, UpdateProfileResponseEntity>> update(
-      {required String name, required String phone, required int avaterId});
+      {required String name, required String email, required int avaterId});
 }

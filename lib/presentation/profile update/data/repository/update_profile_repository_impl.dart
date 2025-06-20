@@ -17,10 +17,10 @@ class UpdateProfileRepositoryImpl implements UpdateProfileRepository {
   @override
   Future<Either<Failures, UpdateProfileResponseEntity>> update(
       {required String name,
-      required String phone,
+      required String email,
       required int avaterId}) async {
     var either = await updateProfileRemoteDataSource.update(
-        phone: phone, name: name, avaterId: avaterId);
+        email: email, name: name, avaterId: avaterId);
     return either.fold((error) => Left(error), (response) => Right(response));
   }
 }
