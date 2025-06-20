@@ -60,14 +60,16 @@ class AppValidators {
   }
 
   static String? validatePhoneNumber(String? val) {
-    if (val == null) {
+    if (val == null || val.trim().isEmpty) {
       return 'this field is required';
-    } else if (int.tryParse(val.trim()) == null) {
-      return 'enter numbers only';
-    } else if (val.trim().length != 11) {
-      return 'enter value must equal 11 digit';
-    } else {
-      return null;
     }
+
+    final onlyDigits = val.replaceAll(RegExp(r'\D'), '');
+
+    // if (onlyDigits.length != 11) {
+    //   return 'Phone number must be 11 digits';
+    // }
+
+    return null;
   }
 }

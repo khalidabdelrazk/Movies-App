@@ -23,6 +23,18 @@ import '../../presentation/authentication/Domain/Use%20Case/auth_use_case.dart'
     as _i105;
 import '../../presentation/authentication/ui/cubit/authentication/auth_view_model.dart'
     as _i212;
+import '../../presentation/profile%20update/data/data_sources/remote/impl/update_profile_remote_data_source_impl.dart'
+    as _i863;
+import '../../presentation/profile%20update/data/data_sources/remote/update_profile_remote_data_source.dart'
+    as _i696;
+import '../../presentation/profile%20update/data/repository/update_profile_repository_impl.dart'
+    as _i46;
+import '../../presentation/profile%20update/domain/repository/update_profile_repository.dart'
+    as _i554;
+import '../../presentation/profile%20update/domain/use_cases/update_profile_use_case.dart'
+    as _i533;
+import '../../presentation/profile%20update/ui/cubit/profile_update_view_model.dart'
+    as _i252;
 import '../../presentation/profile/Data/Data%20Sources/remote/get_profile_remote_data_source.dart'
     as _i182;
 import '../../presentation/profile/Data/Data%20Sources/remote/get_wishlist_remote_data_source.dart'
@@ -67,8 +79,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i182.GetProfileRemoteDataSource>(() =>
         _i104.GetProfileRemoteDataSourceImpl(
             apiManager: gh<_i949.ApiManager>()));
+    gh.factory<_i696.UpdateProfileRemoteDataSource>(() =>
+        _i863.UpdateProfileRemoteDataSourceImpl(
+            apiManager: gh<_i949.ApiManager>()));
     gh.factory<_i471.AuthRepository>(() => _i659.AuthRepositoryImpl(
         authRemoteDataSource: gh<_i293.AuthRemoteDataSource>()));
+    gh.factory<_i554.UpdateProfileRepository>(() =>
+        _i46.UpdateProfileRepositoryImpl(
+            updateProfileRemoteDataSource:
+                gh<_i696.UpdateProfileRemoteDataSource>()));
+    gh.factory<_i533.UpdateProfileUseCase>(() => _i533.UpdateProfileUseCase(
+        updateProfileRepository: gh<_i554.UpdateProfileRepository>()));
     gh.factory<_i339.ProfileRepository>(() => _i216.ProfileRepositoryImpl(
         getProfileRemoteDataSource: gh<_i182.GetProfileRemoteDataSource>()));
     gh.factory<_i952.ProfileGetUseCase>(() => _i952.ProfileGetUseCase(
@@ -79,6 +100,9 @@ extension GetItInjectableX on _i174.GetIt {
         wishlistRepository: gh<_i187.WishlistRepository>()));
     gh.factory<_i105.AuthUseCase>(
         () => _i105.AuthUseCase(authRepository: gh<_i471.AuthRepository>()));
+    gh.factory<_i252.UpdateProfilePageViewModel>(() =>
+        _i252.UpdateProfilePageViewModel(
+            updateProfileUseCase: gh<_i533.UpdateProfileUseCase>()));
     gh.factory<_i812.ProfilePageViewModel>(() => _i812.ProfilePageViewModel(
           profileGetUseCase: gh<_i952.ProfileGetUseCase>(),
           wishlistUseCase: gh<_i193.WishlistUseCase>(),

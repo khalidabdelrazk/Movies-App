@@ -22,7 +22,7 @@ Future<void> main() async {
     EasyLocalization(
       supportedLocales: [
         Locale('en'),
-        Locale('ar')
+        // Locale('ar')
       ], //startLocale: Locale('en'),
       path:
           'assets/translations', // <-- change the path of the translation files

@@ -155,7 +155,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                 onPressed: () {
                                   //todo: navigate to edit profile
                                   Navigator.pushNamed(
-                                      context, RouteNames.profileUpdate);
+                                      context, RouteNames.profileUpdate,
+                                      arguments: {
+                                        'name': user!.name,
+                                        'phone': user.phone,
+                                        'avtarId': user.avaterId,
+                                      });
                                 },
                                 text: "Edit Profile",
                                 textStyle: AppStyles.darkRegular20,
