@@ -58,8 +58,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
     AppAssets.profilePic8,
     AppAssets.profilePic9
   ];
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController rePasswordController = TextEditingController();
+
   bool resetPassword = false;
 
   @override
@@ -165,11 +164,10 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       ? Container()
                       : Column(children: [
                           CustomTextField(
-                            label: LocaleKeys.authentication_password_label
-                                .tr()
-                                .tr(),
+                            label: "old password",
+
                             labelColor: AppColors.light,
-                            controller: passwordController,
+                            controller: viewModel.oldPasswordController,
                             borderColor: AppColors.transparent,
                             prefixIcon: Padding(
                               padding: EdgeInsets.all(12.sp),
@@ -181,7 +179,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                             ),
                             // obscureText: hidePassword,
                             maxLines: 1,
-                            // keyboardType: TextInputType.visiblePassword,
+                            keyboardType: TextInputType.visiblePassword,
                             validator: (p0) =>
                                 AppValidators.validatePassword(p0),
                             inputColor: AppColors.light,
@@ -189,11 +187,9 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                           ),
                           SizedBox(height: 16.h),
                           CustomTextField(
-                            label: LocaleKeys
-                                .authentication_confirm_password_label
-                                .tr(),
+                            label: "new password",
                             labelColor: AppColors.light,
-                            controller: rePasswordController,
+                            controller: viewModel.newPasswordController,
                             borderColor: AppColors.transparent,
                             prefixIcon: Padding(
                               padding: EdgeInsets.all(12.sp),
@@ -204,10 +200,9 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                               ),
                             ),
                             // obscureText: hidePassword,
-                            // keyboardType: TextInputType.visiblePassword,
+                            keyboardType: TextInputType.visiblePassword,
                             validator: (p0) =>
-                                AppValidators.validateConfirmPassword(
-                                    p0, passwordController.text),
+                                AppValidators.validatePassword(p0),
                             inputColor: AppColors.light,
                             maxLines: 1,
                             // suffixIcon: passwordSuffixIcon(),
@@ -236,7 +231,27 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       borderRadius: 12.r,
                       backgroundColor: AppColors.primaryYellowColor,
                       onPressed: () {
-                        viewModel.updateData();
+                        if (viewModel.formKey.currentState!.validate()) {
+                          if (resetPassword) {
+                            DialogUtils.showMessage(
+                              context: context,
+                              title: 'Confirm Reset Password',
+                              message:
+                                  'Are you sure you want to Reset your Password?',
+                              posActionName: 'Yes',
+                              posAction: () async {
+                                viewModel.resetPassword();
+
+                                // Navigate to login screen after deletion
+                                Navigator.pushReplacementNamed(
+                                    context, RouteNames.login);
+                              },
+                              negActionName: 'Cancel',
+                            );
+                          } else {
+                            viewModel.updateData();
+                          }
+                        }
                       },
                       text: "Update Data",
                       textStyle: AppStyles.darkRegular20,
