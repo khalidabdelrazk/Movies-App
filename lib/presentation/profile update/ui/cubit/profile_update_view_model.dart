@@ -33,10 +33,10 @@ class UpdateProfilePageViewModel extends Cubit<UpdateProfileStates> {
         name: nameController.text,
         email: emailController.text);
 
-    result.fold(
-        (error) => emit(UpdateProfileErrorState(failures: error)),
-        (profileData) => emit(UpdateProfileSuccessState(
-            updateProfileResponseEntity: profileData)));
+    result.fold((error) => emit(UpdateProfileErrorState(failures: error)),
+        (profileData) async {
+      emit(UpdateProfileSuccessState(updateProfileResponseEntity: profileData));
+    });
   }
 
 //todo: delete Profile

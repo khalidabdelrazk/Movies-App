@@ -16,6 +16,7 @@ import 'package:movies/core/utils/validators.dart';
 import 'package:movies/generated/locale_keys.g.dart';
 import 'package:movies/presentation/profile%20update/ui/cubit/profile_update_states.dart';
 import 'package:movies/presentation/profile%20update/ui/cubit/profile_update_view_model.dart';
+import 'package:movies/presentation/profile/ui/cubit/profile_page_view_model.dart';
 
 class ProfileUpdate extends StatefulWidget {
   const ProfileUpdate({super.key});
@@ -26,6 +27,7 @@ class ProfileUpdate extends StatefulWidget {
 
 class _ProfileUpdateState extends State<ProfileUpdate> {
   UpdateProfilePageViewModel viewModel = getIt<UpdateProfilePageViewModel>();
+  late ProfilePageViewModel profileViewModel;
   int selectedAvatarIndex = 0;
   bool _initialized = false;
 
@@ -36,6 +38,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
       final args =
           ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
       if (args != null) {
+        profileViewModel = args['viewModel'] as ProfilePageViewModel;
         viewModel.nameController.text = args['name'] ?? '';
         viewModel.emailController.text = args['email'] ?? '';
         viewModel.selectedAvatar = args['avtarId'] ?? 1;
@@ -87,6 +90,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
             title: "Success ",
             posActionName: 'Ok',
           );
+          profileViewModel.getData();
         }
       },
       child: Scaffold(
