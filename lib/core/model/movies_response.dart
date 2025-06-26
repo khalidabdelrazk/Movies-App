@@ -3,19 +3,19 @@ class MoviesResponse {
     this.status,
     this.statusMessage,
     this.data,
-    this.meta,});
+    this.meta,
+  });
 
   MoviesResponse.fromJson(dynamic json) {
     status = json['status'];
     statusMessage = json['status_message'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
-    // Renamed @meta to Meta
     meta = json['@meta'] != null ? Meta.fromJson(json['@meta']) : null;
   }
+
   String? status;
   String? statusMessage;
   Data? data;
-  // Renamed @meta to Meta
   Meta? meta;
 
   Map<String, dynamic> toJson() {
@@ -26,28 +26,27 @@ class MoviesResponse {
       map['data'] = data?.toJson();
     }
     if (meta != null) {
-      // The JSON key can still be '@meta'
       map['@meta'] = meta?.toJson();
     }
     return map;
   }
 }
 
-// Renamed class @meta to Meta
 class Meta {
   Meta({
     this.serverTime,
     this.serverTimezone,
     this.apiVersion,
-    this.executionTime,});
+    this.executionTime,
+  });
 
-  // Renamed @meta.fromJson to Meta.fromJson
   Meta.fromJson(dynamic json) {
     serverTime = json['server_time'];
     serverTimezone = json['server_timezone'];
     apiVersion = json['api_version'];
     executionTime = json['execution_time'];
   }
+
   int? serverTime;
   String? serverTimezone;
   int? apiVersion;
@@ -64,11 +63,7 @@ class Meta {
 }
 
 class Data {
-  Data({
-    this.movieCount,
-    this.limit,
-    this.pageNumber,
-    this.movies,});
+  Data({this.movieCount, this.limit, this.pageNumber, this.movies});
 
   Data.fromJson(dynamic json) {
     movieCount = json['movie_count'];
@@ -81,6 +76,7 @@ class Data {
       });
     }
   }
+
   int? movieCount;
   int? limit;
   int? pageNumber;
@@ -125,7 +121,10 @@ class Movies {
     this.state,
     this.torrents,
     this.dateUploaded,
-    this.dateUploadedUnix,});
+    this.dateUploadedUnix,
+    this.cast,
+    this.likeCount,
+  });
 
   Movies.fromJson(dynamic json) {
     id = json['id'];
@@ -136,7 +135,7 @@ class Movies {
     titleLong = json['title_long'];
     slug = json['slug'];
     year = json['year'];
-    rating = json['rating']?.toDouble(); // Added .toDouble() for safety
+    rating = json['rating']?.toDouble();
     runtime = json['runtime'];
     genres = json['genres'] != null ? json['genres'].cast<String>() : [];
     summary = json['summary'];
@@ -157,9 +156,17 @@ class Movies {
         torrents?.add(Torrents.fromJson(v));
       });
     }
+    if (json['cast'] != null) {
+      cast = [];
+      json['cast'].forEach((v) {
+        cast?.add(Cast.fromJson(v));
+      });
+    }
     dateUploaded = json['date_uploaded'];
     dateUploadedUnix = json['date_uploaded_unix'];
+    likeCount = json['like_count'];
   }
+
   int? id;
   String? url;
   String? imdbCode;
@@ -186,6 +193,8 @@ class Movies {
   List<Torrents>? torrents;
   String? dateUploaded;
   int? dateUploadedUnix;
+  List<Cast>? cast;
+  int? likeCount;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -215,8 +224,12 @@ class Movies {
     if (torrents != null) {
       map['torrents'] = torrents?.map((v) => v.toJson()).toList();
     }
+    if (cast != null) {
+      map['cast'] = cast?.map((v) => v.toJson()).toList();
+    }
     map['date_uploaded'] = dateUploaded;
     map['date_uploaded_unix'] = dateUploadedUnix;
+    map['like_count'] = likeCount;
     return map;
   }
 }
@@ -236,7 +249,8 @@ class Torrents {
     this.size,
     this.sizeBytes,
     this.dateUploaded,
-    this.dateUploadedUnix,});
+    this.dateUploadedUnix,
+  });
 
   Torrents.fromJson(dynamic json) {
     url = json['url'];
@@ -254,6 +268,7 @@ class Torrents {
     dateUploaded = json['date_uploaded'];
     dateUploadedUnix = json['date_uploaded_unix'];
   }
+
   String? url;
   String? hash;
   String? quality;
@@ -286,5 +301,29 @@ class Torrents {
     map['date_uploaded'] = dateUploaded;
     map['date_uploaded_unix'] = dateUploadedUnix;
     return map;
+  }
+}
+
+class Cast {
+  final String? name;
+  final String? characterName;
+  final String? image;
+
+  Cast({this.name, this.characterName, this.image});
+
+  factory Cast.fromJson(Map<String, dynamic> json) {
+    return Cast(
+      name: json['name'],
+      characterName: json['character_name'],
+      image: json['url_small_image'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'character_name': characterName,
+      'url_small_image': image,
+    };
   }
 }

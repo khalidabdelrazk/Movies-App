@@ -10,6 +10,7 @@ import 'package:movies/presentation/home/MovieStates/states.dart';
 import 'package:movies/presentation/home/SliderBuilder.dart';
 import 'package:movies/presentation/home/cubits/MovieCubit.dart';
 import 'package:movies/core/model/movies_response.dart';
+import 'package:movies/presentation/movie%20details/ui/movie_details.dart';
 
 import '../../../core/utils/movie_card.dart';
 
@@ -78,17 +79,20 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       SizedBox(height: height * 0.04),
-                      Image.asset(AppAssets.available, width: 267.w, height: 93.h),
+                      Image.asset(AppAssets.available,
+                          width: 267.w, height: 93.h),
                       SizedBox(height: height * 0.03),
                       SliderBuilder(height: height, slider: movies),
                       SizedBox(height: height * 0.03),
-                      Image.asset(AppAssets.watchNow, width: 267.w, height: 93.h),
+                      Image.asset(AppAssets.watchNow,
+                          width: 267.w, height: 93.h),
                       SizedBox(height: height * 0.02),
 
                       // Genre sections
                       ...genres.map((genre) {
                         final genreMovies = movies
-                            .where((movie) => movie.genres?.contains(genre) ?? false)
+                            .where((movie) =>
+                                movie.genres?.contains(genre) ?? false)
                             .toList();
 
                         return Padding(
@@ -101,9 +105,11 @@ class _HomePageState extends State<HomePage> {
                                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                                 child: Row(
                                   children: [
-                                    Text(genre, style: AppStyles.lightRegular20),
+                                    Text(genre,
+                                        style: AppStyles.lightRegular20),
                                     const Spacer(),
-                                    Text("See More", style: AppStyles.primaryRegular16),
+                                    Text("See More",
+                                        style: AppStyles.primaryRegular16),
                                     Icon(Icons.arrow_forward,
                                         size: 20.sp,
                                         color: AppColors.primaryYellowColor),
@@ -118,22 +124,49 @@ class _HomePageState extends State<HomePage> {
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: genreMovies.length,
-                                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 16.w),
                                   itemBuilder: (context, index) {
                                     final movie = genreMovies[index];
+                                    final currentMovie = movies[index];
                                     return Padding(
                                       padding: EdgeInsets.only(right: 12.w),
                                       child: MoviePosterCard(
-                                        width: 150.w,
-                                        height: 250.h,
-                                        movie: movie,
-                                        onPressed: () {
-                                          Navigator.of(context).pushNamed(
-                                            RouteNames.movieDetails,
-                                            arguments: movie,
-                                          );
-                                        },
-                                      ),
+                                          width: 150.w,
+                                          height: 250.h,
+                                          movie: movie,
+                                          onPressed: () async {
+                                            if (movie.id != null) {
+                                              showDialog(
+                                                context: context,
+                                                barrierDismissible: false,
+                                                builder: (_) => const Center(
+                                                    child:
+                                                        CircularProgressIndicator()),
+                                              );
+
+                                              final movieDetails =
+                                                  await viewModel
+                                                      .fetchMovieDetails(
+                                                          movie.id!);
+
+                                              Navigator.pop(
+                                                  context); // close loading dialog
+
+                                              if (movieDetails != null) {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MovieDetails(
+                                                      movie: movieDetails,
+                                                      similarMovies: movies,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            }
+                                          }),
                                     );
                                   },
                                 ),

@@ -55,6 +55,11 @@ dependencies:
   easy_localization: ^3.0.7+1
   provider: ^6.1.5
   introduction_screen: ^3.1.17
+  url_launcher: ^6.3.1
+  video_player: ^2.9.5
+  chewie: ^1.10.0
+  webview_flutter: ^4.10.0
+  youtube_player_flutter: ^9.1.1
 
 dev_dependencies:
   flutter_test:
